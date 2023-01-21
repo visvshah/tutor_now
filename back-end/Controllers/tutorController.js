@@ -89,6 +89,9 @@ export const createSession = asyncHandler(async (req, res) => {
 export const createReview = asyncHandler(async (req, res) => {
 
 })
+const validateEmail = (email) => {
+    
+}
 const generateToken = (id) => {
     return jwt.sign({id}, "abc123", {
         expiresIn: '30d',

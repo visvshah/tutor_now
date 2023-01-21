@@ -4,7 +4,9 @@ import mongoose from "mongoose";
 import cors from "cors";
 import studentRoutes from "./Routes/studentRoutes.js";
 import tutorRoutes from "./Routes/tutorRoutes.js";
+import { validateEmail } from "./Controllers/validateFile.js";
 import dotenv from "dotenv";
+
 
 const app = express();
 dotenv.config();
@@ -15,6 +17,10 @@ app.use(bodyParser.urlencoded({ limit: '5mb', extended: false}));
 app.use(cors());
 app.use('/api/students', studentRoutes)
 app.use('/api/tutors', tutorRoutes)
+
+validateEmail("jogsoham2003@gmail.com")
+
+
 console.log("URL: " + process.env.MONGO_URL);
 mongoose.connect(process.env.MONGO_URL, {useNewUrlParser: true, useUnifiedTopology: true})
     .then(()=> app.listen(5001, ()=> console.log(`Server runnning on port: 5001`)))
