@@ -1,5 +1,7 @@
 import React from 'react'
 import "./home.css"
+import tutorHome from './tutorHome';
+import studentHome from './studentHome';
 
 export default function home() {
     const [students, updateStudents] = useState();
@@ -11,29 +13,15 @@ export default function home() {
         </div>
         )
     }
-    const getStudents = (boardNumber) =>{
-        console.log(boards);
-        fetch("http://localhost:5001/api/students/getboards", { method: "PATCH", body: JSON.stringify(boards), mode: 'cors', headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},contentType: "application/json"})
-            .then(res => {
-                return res.json()
-            })
-            .then(data => {
-                
-            })
-        .catch(e => {
-            console.log(e)
-        })
-      }
+    
   return (
     <div>
-        <div className="left">
-            
-        </div>
-        <div className="right">
-            <div className="timer">
-                
-            </div>
-        </div>
+        {(user.type == 1) && (
+            <studentHome/>
+        )}
+        {(user.type == 2) && (
+            <tutorHome/>
+        )}
     </div>
   )
 }
