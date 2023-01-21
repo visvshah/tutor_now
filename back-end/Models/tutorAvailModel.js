@@ -6,6 +6,11 @@ const tutorAvailSchema = mongoose.Schema({
         type: String,
         required: [true, 'Please have a tutorId']
     },
+    courses: {
+        //array of strings
+        type: [String],
+        required: [true, 'Please have a course']
+    }
 },
 {
     timestamps: true
