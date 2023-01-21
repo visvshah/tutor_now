@@ -1,3 +1,6 @@
+.logInMainHeader{
+    margin-top: 200px;
+}
 .header{
     font-size: 40px;
     position: relative;
@@ -9,7 +12,6 @@
     width: 100vw;
     height: 90vh;
     flex-direction: column;
-    padding-top: 50px;
 }
 input{
     margin-bottom: 10px;
@@ -153,8 +155,32 @@ button:hover{
     overflow: hidden;
 }
 .tutorButton{
-
+    cursor: pointer;
+    /*margin-top: 20px;*/
+    position: relative;
+    margin-bottom: 10px;
+    color: white;
+    background-color: black;
+    /*width: 300px;*/
+    width: 323px;
+    height: 50px;
+    border: none;
+    border-radius: 10px;
+    font-size: 20px;
+    padding: 10px 10px;
 }
 .studentButton{
-    
+    cursor: pointer;
+    /*margin-top: 20px;*/
+    position: relative;
+    margin-bottom: 10px;
+    color: white;
+    background-color: black;
+    /*width: 300px;*/
+    width: 323px;
+    height: 50px;
+    border: none;
+    border-radius: 10px;
+    font-size: 20px;
+    padding: 10px 10px;
 }
