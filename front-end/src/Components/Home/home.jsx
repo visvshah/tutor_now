@@ -6,6 +6,7 @@ import StudentHome from './studentHome';
 export default function Home() {
     const [students, updateStudents] = useState();
     const user = JSON.parse(localStorage.getItem("profile"));
+    
     if(!user) {
         return (
         <div className="home">
@@ -16,10 +17,11 @@ export default function Home() {
     
   return (
     <div className = "home">
-        {(user.type === 1) && (
+
+        {(user.type == 1) && (
             <StudentHome user = {user}/>
         )}
-        {(user.type === 2) && (
+        {(user.type == 2) && (
             <TutorHome/>
         )}
     </div>
