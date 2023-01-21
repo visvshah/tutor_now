@@ -5,7 +5,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import express from "express";
 export const registerStudent = asyncHandler(async (req, res) => {
-    const { fName, lName, email, age, password} = await req.body;
+    const { fName, lName, email, age, password, number, venmo, school, classYear} = await req.body;
         
         if(!fName.length > 0 || !lName.length > 0 ||!email.length > 0 || !password.length > 0 || !age.length > 0) {
             res.status(400)
