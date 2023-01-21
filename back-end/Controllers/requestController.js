@@ -1,49 +1,34 @@
 import asyncHandler from "express-async-handler";
-import studentModel from "../Models/studentModel.js";
+import requestModel from "../Models/requestModel";
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import express from "express";
 export const createRequest = asyncHandler(async (req, res) => {
-    const { fName, lName, email, age, password} = await req.body;
+    const { fName, lName, email, number, venmo, school, classYear, course} = await req.body;
         
-        if(!fname.length > 0 || !lname.length > 0 ||!email.length > 0 || !password.length > 0 || !age.length > 0) {
-            res.status(400)
-            throw new Error('Please add all fields')
-        }
-        
-        // Hash password
-        const hashedPassword = await bcrypt.hash(password, 12)
-        // Check if student exists
-        const studentExists = await studentModel.findOne({email})
-        if(studentExists) {
+        // Check if request exists
+        const requestExists = await requestModel.findOne({email})
+        if(requestExists) {
             res.status(400)
             throw new Error('student already exists')
         }
-        // Create student
-        const student = await studentModel.create({
+        // Create request
+        const request = await requestModel.create({
             fName,
             lName,
             email,
             number,
             venmo,
-            password: hashedPassword,
             school,
             classYear,
+            course,
+            tutorId: "",
         })
-        const studentToken = jwt.sign({fName, lName, email, id: student._id}, "profile", {expiresIn: "1h"});
-        if(student) {
+        if(request) {
             res.status(201).json({
-                _id: student.id,
-                fName: student.fName,
-                lName: student.lName,
-                email: student.email,
-                number: student.number,
-                venmo: student.venmo,
-                school: student.school,
-                classYear: student.classYear,
-                token: studentToken,
-                type: 1,
+                _id: request.id,
+                timeStamp: request.timeStamp,
             })
             
         } else {

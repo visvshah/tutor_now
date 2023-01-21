@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 
-const tutorSchema = mongoose.Schema({
+export const tutorSchema = mongoose.Schema({
     fName: {
         type: String,
         required: [true, 'Please add a first name']
@@ -48,6 +48,22 @@ const tutorSchema = mongoose.Schema({
     about: {
         type: String,
         required: [false],
+    },
+    studentId: {
+        type: String,
+        default: "",
+    },
+    courseToTutor: {
+        type: String,
+        default: "",
+    },
+    rating: {
+        type: Number,
+        default: 0.0,
+    },
+    ratingUsers: {
+        type: Number,
+        default: 0,
     },
 },
 {

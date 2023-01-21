@@ -36,6 +36,14 @@ const requestSchema = mongoose.Schema({
     course: {
         type: String,
         required: [true, 'Please add a course']
+    },
+    tutorId:  {
+        type: String,
+        required: [false]
+    },
+    timeStamp: {
+        type: Date,
+        default: new Date(),
     }
 },
 {

@@ -75,8 +75,8 @@ export const loginStudent = asyncHandler(async (req, res) => {
     }
 })
 
-export const sendStudentDetails = asyncHandler(async (req, res) => {
-    
+export const getStudent = asyncHandler(async (req, res) => {
+    //sends back res.json with all student info. (argument is student id)
 })
 export const createSession = asyncHandler(async (req, res) => {
     

@@ -142,7 +142,7 @@ return (
             )
             }
             {(currentPage != 2) && (
-                 <button onClick = {()=>moveRight()} className = 'rightArrow'>Next</button>
+                <button onClick = {()=>moveRight()} className = 'rightArrow'>Next</button>
             )
             }
         </div>
