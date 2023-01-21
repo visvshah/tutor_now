@@ -4,7 +4,7 @@ export default function StudentHome({user}) {
     const [didReq, setDidReq] = useState(false);
     const [request, changeRequest] = useState({
         studentId : user._id,
-        class: "",
+        courseName: "",
     })
     const [booking, changeBooking] = useState({
         studentId : user._id,
