@@ -12,6 +12,8 @@ export const registerTutor = asyncHandler(async (req, res) => {
             throw new Error('Please add all fields')
         }
         
+        const classesArray = classes.split(",");
+
         // Hash password
         const hashedPassword = await bcrypt.hash(password, 12)
         // Check if tutor exists
@@ -30,7 +32,7 @@ export const registerTutor = asyncHandler(async (req, res) => {
             password: hashedPassword,
             school,
             classYear,
-            classes,
+            classes: classesArray,
             gpa,
             about,
             

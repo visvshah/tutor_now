@@ -6,7 +6,7 @@ import express from "express";
 import tutorModel from "../Models/tutorModel.js";
 import { validateEmail } from "../validateFile.js";
 import tutorAvailModel from "../Models/tutorAvailModel.js";
-
+import studentModel from "../Models/studentModel.js";
 
 export const createTutorAvail = asyncHandler(async (req, res) => {
     //Creates new tutor avail object, tutorId and course should be in the req.body
@@ -14,32 +14,46 @@ export const createTutorAvail = asyncHandler(async (req, res) => {
 
 
     const tutor = await tutorModel.findOne({id: tutorId});
+    console.log("Tutor found!" + tutor.email)
 
     let courses = tutor.classes;
-    // Check if tutor avail exists
-    const tutorAvailExists = await tutorAvailModel.findOne({
-        tutorId: tutorId
+
+
+    //make sure tutor doesn't exist in tutoravail
+    const tutorExists = await tutorAvailModel.findOne({
+        tutorId
     })
-    if(tutorAvailExists) {
+    if(tutorExists) {
         res.status(400)
         throw new Error('tutor already exists')
     }
+
     // Create tutor avail
     const tutorAvail = await tutorAvailModel.create({
         tutorId,
         courses,
-    })
-    
+    }).then(()=>{console.log("done")})
+
 
 })
 
 
 export const fetchTutors = asyncHandler(async (req, res) => {
    //creates an array of able to teach the class in the req.body
-   tutorAvailModel.find()
+    const {courseName} = await req.body;
+    //find all tutors who have the course in their courses array
+    const tutors = await tutorAvailModel.find({courses: courseName})
    .then(tutoravails => res.json(tutoravails))
    .catch(err => res.status(400).json('Error: ' + err));
+
 })
+
+export const getAllTutors = asyncHandler(async (req, res) => {
+    //creates an array of able to teach the class in the req.body
+        const tutors = await tutorAvailModel.find()
+         .then(tutoravails => res.json(tutoravails))
+            .catch(err => res.status(400).json('Error: ' + err));
+    })
 
 
 export const requestTutor = asyncHandler(async (req, res) => {
@@ -78,7 +92,7 @@ export const deleteAvailTutor = asyncHandler(async (req, res) => {
 
     //deleting the tutor avail object
     tutorAvailModel.findByIdAndDelete(_id)
-    .then(() => res.json('Exercise deleted.'))
+    .then(() => res.json('Tutoravail deleted.'))
     .catch(err => res.status(400).json('Error: ' + err));
 })
 
