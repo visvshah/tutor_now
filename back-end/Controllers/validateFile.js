@@ -1,3 +1,5 @@
+//Currently sends an OTP to the email address provided by the user
+
 import asyncHandler from "express-async-handler";
 import tutorModel from "../Models/tutorModel.js";
 import mongoose from "mongoose";
