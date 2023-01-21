@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import express from "express";
-export const registerUser = asyncHandler(async (req, res) => {
+export const registerStudent = asyncHandler(async (req, res) => {
     const { fName, lName, email, age, password} = await req.body;
         
         if(!fname.length > 0 || !lname.length > 0 ||!email.length > 0 || !password.length > 0 || !age.length > 0) {
@@ -14,14 +14,14 @@ export const registerUser = asyncHandler(async (req, res) => {
         
         // Hash password
         const hashedPassword = await bcrypt.hash(password, 12)
-        // Check if user exists
-        const userExists = await userModel.findOne({email})
-        if(userExists) {
+        // Check if student exists
+        const studentExists = await studentModel.findOne({email})
+        if(studentExists) {
             res.status(400)
-            throw new Error('User already exists')
+            throw new Error('student already exists')
         }
-        // Create user
-        const user = await userModel.create({
+        // Create student
+        const student = await studentModel.create({
             fName,
             lName,
             email,
@@ -31,54 +31,51 @@ export const registerUser = asyncHandler(async (req, res) => {
             school,
             classYear,
         })
-        const userToken = jwt.sign({fName, lName, email, id: user._id}, "profile", {expiresIn: "1h"});
-        if(user) {
+        const studentToken = jwt.sign({fName, lName, email, id: student._id}, "profile", {expiresIn: "1h"});
+        if(student) {
             res.status(201).json({
-                _id: user.id,
-                fName: user.fName,
-                lName: user.lName,
-                email: user.email,
-                age: user.age,
-                password: user.password,
-                board1: user.board1,
-                board2: user.board2,
-                board3: user.board3,
-                token: userToken,
+                _id: student.id,
+                fName: student.fName,
+                lName: student.lName,
+                email: student.email,
+                number: student.number,
+                venmo: student.venmo,
+                school: student.school,
+                classYear: student.classYear,
+                token: studentToken,
+                type: 1,
             })
             
         } else {
             res.status(400);
-            throw new Error('Invalid user data');
+            throw new Error('Invalid student data');
         }
 })
 
 
-export const loginUser = asyncHandler(async (req, res) => {
-    /** 
+export const loginStudent = asyncHandler(async (req, res) => {
     const {email, password} = req.body
-    const user = await userModel.findOne({email})
-    if(user && (await bcrypt.compare(password, user.password))) {
-        const userToken = jwt.sign({fName:user.fName, lName:user.lName, email:user.email, _id: user._id}, "profile", {expiresIn: "1h"});
+    const student = await studentModel.findOne({email})
+    if(student && (await bcrypt.compare(password, student.password))) {
+        const studentToken = jwt.sign({fName:student.fName, lName:student.lName, email:student.email, _id: student._id}, "profile", {expiresIn: "1h"});
         res.json({
-            _id: user.id,
-            fName: user.fName,
-            lName: user.lName,
-            email: user.email,
-            age: user.age,
-            password: user.password,
-            board1: user.board1,
-            board2: user.board2,
-            board3: user.board3,
-            token: userToken,
+            _id: student.id,
+                fName: student.fName,
+                lName: student.lName,
+                email: student.email,
+                number: student.number,
+                venmo: student.venmo,
+                school: student.school,
+                classYear: student.classYear,
+                token: studentToken,
         })
     } else {
         res.status(400);
         throw new Error('Invalid credentials');
     }
-    */
 })
 
-export const updateUser = asyncHandler(async (req, res) => {
+export const sendStudentDetails = asyncHandler(async (req, res) => {
     
 })
 export const createSession = asyncHandler(async (req, res) => {

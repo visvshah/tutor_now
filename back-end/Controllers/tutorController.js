@@ -73,13 +73,13 @@ export const loginTutor = asyncHandler(async (req, res) => {
             email: tutor.email,
             number: tutor.number,
             venmo: tutor.venmo,
-            password: tutor.password,
             school: tutor.school,
             classYear: tutor.classYear,
             classes: tutor.classes,
             gpa: tutor.gpa,
             about: tutor.about,
             token: tutorToken,
+            type: 2,
         })
     } else {
         res.status(400);
