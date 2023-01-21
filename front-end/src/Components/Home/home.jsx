@@ -5,10 +5,7 @@ import StudentHome from './studentHome';
 
 export default function Home() {
     const [students, updateStudents] = useState();
-    //const user = JSON.parse(localStorage.getItem("profile"));
-    const user = {
-        type:1,
-    }
+    const user = JSON.parse(localStorage.getItem("profile"));
     if(!user) {
         return (
         <div className="home">
