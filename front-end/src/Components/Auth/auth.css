@@ -23,6 +23,19 @@ input{
     display: flex;
     transition: all 1s ease;
 }
+.aboutInput{
+    width: 600px;
+	height: 120px;
+    border-radius: 0;
+    border-style: none;
+    border-radius: 10px;
+	border: 3px solid #cccccc;
+	padding: 5px;
+    font-size: 13px;
+    display: flex;
+    transition: all 1s ease;
+    margin-bottom: 20px;
+}
 .form{
     display: flex;
     align-items: center;

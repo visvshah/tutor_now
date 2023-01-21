@@ -73,7 +73,7 @@ export default function StudentAuth() {
         number: "",
         venmo: "",
         password: "",
-        classYear: undefined,
+        classYear: "",
         school: "",
         classYear: ""
     })
@@ -84,7 +84,7 @@ export default function StudentAuth() {
             <form autoComplete="off" validate="true" className="form" onSubmit={handleSubmit}>
                 <div className="projectSlider" style={{ transform: `translateX(-${currentPage * 100}vw)` }}>
                     <div className="projectHolder">
-                        <h1 className="header" >{!logIn ? "Log In" : "Sign Up"}</h1>
+                        <h1 className="header" >{logIn ? "Log In" : "Sign Up"}</h1>
                         {logIn && (
                             <>
                                 <input placeholder="Your email" id="email" name="email" type="email" onChange={(e) => setStudentData({ ...studentData, email: e.target.value })} />
@@ -101,7 +101,7 @@ export default function StudentAuth() {
                                 <button onClick={() => moveRight()} className='submitButton'>Next</button>
                             </>
                         )}
-                        <button className="changeMode" onClick={changeMode}>{logIn ? "Log In Instead" : "Sign Up instead"}</button>
+                        <button className="changeMode" onClick={changeMode}>{!logIn ? "Log In Instead" : "Sign Up instead"}</button>
                     </div>
                     <div className="projectHolder">
                         <h1 className="header">Tell us more about yourself</h1>
