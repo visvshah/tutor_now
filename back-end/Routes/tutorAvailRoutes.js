@@ -11,3 +11,5 @@ router.get('/', getAllTutors)
 
 
 export default router;
+
+//http://localhost:5001/api/tutorsavails/create
