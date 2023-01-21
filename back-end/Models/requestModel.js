@@ -1,10 +1,10 @@
 import mongoose from 'mongoose';
 
 
-export const tutorSchema = mongoose.Schema({
+const requestSchema = mongoose.Schema({
     fName: {
         type: String,
-        required: [true, 'Please add a first name']
+        required: [true, 'Please have a first name']
     },
     lName: {
         type: String,
@@ -25,10 +25,6 @@ export const tutorSchema = mongoose.Schema({
         required: [true, 'Please add an Venmo'],
         unique: true
     },
-    password: {
-        type: String,
-        required: [true, 'Please add a password']
-    },
     school: {
         type: String,
         required: [true]
@@ -37,38 +33,22 @@ export const tutorSchema = mongoose.Schema({
         type: Number,
         required: [false]
     },
-    classes : {
-        type: [String],
+    course: {
+        type: String,
+        required: [true, 'Please add a course']
+    },
+    tutorId:  {
+        type: String,
         required: [false]
     },
-    gpa : {
-        type: Number,
-        required: [false]
-    },
-    about: {
-        type: String,
-        required: [false],
-    },
-    studentId: {
-        type: String,
-        default: "",
-    },
-    courseToTutor: {
-        type: String,
-        default: "",
-    },
-    rating: {
-        type: Number,
-        default: 0.0,
-    },
-    ratingUsers: {
-        type: Number,
-        default: 0,
-    },
+    timeStamp: {
+        type: Date,
+        default: new Date(),
+    }
 },
 {
     timestamps: true
 })
 
-const tutorModel = mongoose.model('tutorModel', tutorSchema);
-export default tutorModel;
+const requestModel = mongoose.model('requestModel', requestSchema);
+export default requestModel;
