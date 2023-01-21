@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 
 
 const requestSchema = mongoose.Schema({
+    //requesters info
     fName: {
         type: String,
         required: [true, 'Please have a first name']

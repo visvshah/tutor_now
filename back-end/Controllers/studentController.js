@@ -7,7 +7,7 @@ import express from "express";
 export const registerStudent = asyncHandler(async (req, res) => {
     const { fName, lName, email, age, password} = await req.body;
         
-        if(!fname.length > 0 || !lname.length > 0 ||!email.length > 0 || !password.length > 0 || !age.length > 0) {
+        if(!fName.length > 0 || !lName.length > 0 ||!email.length > 0 || !password.length > 0 || !age.length > 0) {
             res.status(400)
             throw new Error('Please add all fields')
         }
@@ -77,7 +77,19 @@ export const loginStudent = asyncHandler(async (req, res) => {
 
 export const getStudent = asyncHandler(async (req, res) => {
     //sends back res.json with all student info. (argument is student id)
+    studentModel.findById(req.params.id)
+    .then(student => res.json({_id: student.id,
+        fName: student.fName,
+        lName: student.lName,
+        email: student.email,
+        number: student.number,
+        venmo: student.venmo,
+        school: student.school,
+        classYear: student.classYear,
+        token: studentToken,}))
+    .catch(err => res.status(400).json('Error: ' + err));
 })
+
 export const createSession = asyncHandler(async (req, res) => {
     
 })
