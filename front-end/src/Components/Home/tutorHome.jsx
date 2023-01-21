@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function tutorHome() {
+export default function TutorHome() {
     
   return (
     <div>
