@@ -1,4 +1,4 @@
-import asyncHandler from "express-async-handler";
+ import asyncHandler from "express-async-handler";
 import requestModel from "../Models/requestModel";
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
@@ -58,16 +58,6 @@ export const loginStudent = asyncHandler(async (req, res) => {
         res.status(400);
         throw new Error('Invalid credentials');
     }
-})
-
-export const sendStudentDetails = asyncHandler(async (req, res) => {
-    
-})
-export const createSession = asyncHandler(async (req, res) => {
-    
-})
-export const createReview = asyncHandler(async (req, res) => {
-
 })
 const generateToken = (id) => {
     return jwt.sign({id}, "abc123", {

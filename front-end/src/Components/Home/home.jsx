@@ -1,26 +1,29 @@
-import React from 'react'
+import React, {useState} from 'react'
 import "./home.css"
-import tutorHome from './tutorHome';
-import studentHome from './studentHome';
+import TutorHome from './tutorHome';
+import StudentHome from './studentHome';
 
-export default function home() {
+export default function Home() {
     const [students, updateStudents] = useState();
-    const user = JSON.parse(localStorage.getItem("profile"));
+    //const user = JSON.parse(localStorage.getItem("profile"));
+    const user = {
+        type:1,
+    }
     if(!user) {
         return (
-        <div className="holder">
+        <div className="home">
             <h1 className="logInFirst">Log in First!</h1>
         </div>
         )
     }
     
   return (
-    <div>
-        {(user.type == 1) && (
-            <studentHome/>
+    <div className = "home">
+        {(user.type === 1) && (
+            <StudentHome user = {user}/>
         )}
-        {(user.type == 2) && (
-            <tutorHome/>
+        {(user.type === 2) && (
+            <TutorHome/>
         )}
     </div>
   )
