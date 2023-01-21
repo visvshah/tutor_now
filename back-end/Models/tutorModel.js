@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 
-const studentSchema = mongoose.Schema({
+const tutorSchema = mongoose.Schema({
     fName: {
         type: String,
         required: [true, 'Please add a first name']

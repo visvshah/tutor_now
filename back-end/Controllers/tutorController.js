@@ -1,5 +1,5 @@
 import asyncHandler from "express-async-handler";
-import userModel from "../Models/userModels.js";
+import tutorModel from "../Models/tutorModel.js";
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
