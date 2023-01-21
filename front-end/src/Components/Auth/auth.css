@@ -97,10 +97,6 @@ button:hover{
     justify-content: center;
     position: relative;
     overflow: hidden;
-
-    @include mobile{
-        padding: 30px 0px;
-    }
     .projectHeader{
         color: $orange;
         font-weight: 700;
@@ -110,11 +106,6 @@ button:hover{
         display: flex;
         align-items: center;
         justify-content: center;
-        @include mobile{
-            font-size: 50px;
-            position: relative;
-            top: -330px;
-        }
     }
     .leftArrow{
         font-size: 80px;
@@ -132,9 +123,6 @@ button:hover{
         position: absolute;
         right: 30px;
         cursor: pointer;
-        @include mobile{
-            bottom: 100px;
-        }
     }
     .projectSlider{
         height: 600px;
@@ -143,9 +131,6 @@ button:hover{
         left: 0vw;
         transition: all 1.5s ease;
         overflow: hidden;
-        @include mobile{
-            margin-top: 20vw;
-        }
         .projectHolder{
             width:100vw;
             height: 100%;
@@ -153,173 +138,6 @@ button:hover{
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            @include mobile{
-                height:  342px;
-                margin-top: 30px;
-                margin-bottom: 10px;
-            }
-            .project{
-                width: 600px;
-                height: 100%;
-                overflow: hidden;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                border-radius: 50%;
-                background-color: $projectColor;
-                flex-direction: column;
-                @include mobile{
-                    width:  342px;
-                }
-                .top{
-                    display: flex;
-                    width: 100%;
-                    justify-content: center;
-                    align-items: center;
-                    color: $fontColor;
-                    font-weight: 700;
-                    flex-direction: column;
-                    overflow: hidden;
-                    flex:2;
-
-                    h1{
-                        margin-top: 70px;
-                        font-weight: 700;
-                        font-size: 35px;
-                        @include mobile{
-                            margin-top: 40px;
-                            font-size: 20px;
-                            font-weight: 700;
-                        }
-                    }
-                    h2{
-                        margin-top: 10px;
-                        margin-bottom: 7px;
-                        margin-left: 30px;
-                        font-size: 20px;
-                        color: $orange;
-                        @include mobile{
-                            font-size: 16px;
-                        }
-                    }
-                }
-                .middle{
-                    width: 100%;
-                    flex:3;
-                    display: flex;
-                    flex-direction:row;
-                    overflow: hidden;
-                    .left{
-                        display: flex;
-                        flex:4;
-                        height:100%;
-                        align-items: center;
-                        justify-content: center;
-                        width: 60%;
-                        overflow: hidden;
-                        @include mobile{
-                            flex: 5;
-                        }
-                        .textHolder{
-                            color: $fontColor;
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                            flex-direction: column;
-                            @include mobile{
-                                text-align: center;
-                            }
-                            h2{
-                                padding: 0px 10px;
-                                font-size: 18px;
-                                color: $orange;
-                                @include mobile{
-                                    padding: 3px 3px;
-                                    font-size: 15px;
-                                }
-                            }
-                            p{
-                                padding: 10px 10px;
-                                font-size: 17px;
-                                margin-left: 30px;
-                                color: $gray;
-                                @include mobile{
-                                    font-size: 15px;
-                                    margin: 0px;
-                                }
-                            }
-                        }
-                    }
-                    .right{
-                        display: flex;
-                        flex: 5;
-                        height: 100%;
-                        width: 40%;
-                        align-items: center;
-                        overflow: hidden;
-                        @include mobile{
-                            flex: 4;
-                            padding: 10px 10px;
-                        }
-                        video{
-                            border-radius: 20px;
-                        }
-                    }
-                }
-                .bottom{
-                    justify-content: space-between;
-                    align-items: center;
-                    flex-direction: row;
-                    display: flex;
-                    flex:2;
-                    color: $fontColor;
-                    overflow: hidden;
-                    @include mobile{
-                    }
-                    .link1{
-                        font-size: 16px;
-                        font-weight: 500;
-                        margin-bottom: 10px;
-                        align-items: center;
-                        display: flex;
-                        @include mobile{
-                            flex-direction: row;
-                            margin-bottom: 0px;
-                        }
-                        .linkName{
-                            @include mobile{
-                                margin-left: 10px;
-                            }
-                        }
-                    }
-                    .link2{
-                        font-size: 16px;
-                        font-weight: 500;
-                        margin-left: 20px;
-                        margin-bottom: 10px;
-                        display: flex;
-                        align-items: center;
-                        @include mobile{
-                            flex-direction: row;
-                            margin-bottom: 0px;
-                        }
-                        .linkName{
-                            @include mobile{
-                                margin-left: 10px;
-                            }
-                        }
-                    }
-                    .websiteLink{
-                        font-size: 40px;
-                        color: $fontColor;
-                        margin-bottom: 5px;
-                        @include mobile{
-                            font-size: 30px;
-                            margin-bottom: 2px;
-                        }
-                    }
-                }
-            }
         }
 
     }
