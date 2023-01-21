@@ -10,7 +10,12 @@ import tutorAvailModel from "../Models/tutorAvailModel.js";
 
 export const createTutorAvail = asyncHandler(async (req, res) => {
     //Creates new tutor avail object, tutorId and course should be in the req.body
-    const {tutorId, courses} = await req.body;
+    const {tutorId} = await req.body;
+
+
+    const tutor = await tutorModel.findOne({id: tutorId});
+
+    let courses = tutor.classes;
     // Check if tutor avail exists
     const tutorAvailExists = await tutorAvailModel.findOne({
         tutorId: tutorId
@@ -57,6 +62,24 @@ export const requestTutor = asyncHandler(async (req, res) => {
     });
     //send an email to the tutor
     validateEmail(tutorEmail, fName, lName, courseName);
+})
+
+
+export const deleteAvailTutor = asyncHandler(async (req, res) => {
+
+    const _id = req.params.id;
+    const tutorAvail = await tutorAvailModel.findById(req.params.id)
+    const tutorId = tutorAvail.tutorId;
+    const tutor = await tutorModel.findOne({tutorId})
+    tutor.tutorAvail = true;
+    tutor.courseToTutor = "";
+    await tutor.save()
+
+
+    //deleting the tutor avail object
+    tutorAvailModel.findByIdAndDelete(_id)
+    .then(() => res.json('Exercise deleted.'))
+    .catch(err => res.status(400).json('Error: ' + err));
 })
 
 export const createSession = asyncHandler(async (req, res) => {
