@@ -34,7 +34,7 @@ export const tutorSchema = mongoose.Schema({
         required: [true]
     },
     classYear: {
-        type: Number,
+        type: String,
         required: [false]
     },
     classes : {
