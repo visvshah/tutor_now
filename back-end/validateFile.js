@@ -1,7 +1,6 @@
-//Currently sends an OTP to the email address provided by the user
+//Currently sends a message requesting the tutor to accept the request
 
 import asyncHandler from "express-async-handler";
-import tutorModel from "../Models/tutorModel.js";
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
@@ -27,15 +26,15 @@ let otp = Math.floor(100000 + Math.random() * 900000);
 
 
 
-export const validateEmail = (email, studentName, studentSubject) => {
+export const validateEmail = (email, fName, lName, studentSubject) => {
     usermail = email;
-    let studentName = studentName;
-    let studentSubject = studentSubject;
+
+
     let mailOptions = {
         from: "GoTutor",
         to: usermail,
-        subject: `${studentName} wants to learn ${studentSubject}}`,
-        text: `${studentName} is waiting for you to accept their request to learn ${studentSubject}. Please check your dashboard to accept or decline their request.`
+        subject: `${fName} ${lName} wants to learn ${studentSubject}}`,
+        text: `${fName} ${lName} is waiting for you to accept their request to learn ${studentSubject}. Please check your dashboard to see this request.`
     };
     console.log(usermail);
     try {

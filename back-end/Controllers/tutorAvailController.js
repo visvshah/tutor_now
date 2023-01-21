@@ -1,11 +1,11 @@
 import asyncHandler from "express-async-handler";
-import tutorAvailModel from "../Models/tutorAvailModel";
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import express from "express";
-import tutorModel from "../Models/tutorModel";
-import { validateEmail } from "../validateFile";
+import tutorModel from "../Models/tutorModel.js";
+import { validateEmail } from "../validateFile.js";
+import tutorAvailModel from "../Models/tutorAvailModel.js";
 
 
 export const createTutorAvail = asyncHandler(async (req, res) => {
@@ -40,12 +40,15 @@ export const fetchTutors = asyncHandler(async (req, res) => {
 export const requestTutor = asyncHandler(async (req, res) => {
     //in the req.body there should be a studentid and coursename
     //Update tutor's studentId to match the requesting student's id and update tutor's course to reflect the course they have to tutor
-    const {studentId, courseName, tutorId, tutorEmail, studentName} = await req.body;
+    const {studentId, tutorId, courseName} = await req.body;
     //Tutor dsf = search by id to get the tutor
-
+    const student = await studentModel.findOne({studentId})
+    let fName = student.fName;
+    let lName = student.lName;
     const tutor = await tutorModel.findOne({tutorId})
     tutor.tutorAvail = false;
     tutor.courseToTutor = courseName;
+    let tutorEmail = tutor.email;
     await tutor.save()
 
     res.status(200).json({
@@ -53,16 +56,17 @@ export const requestTutor = asyncHandler(async (req, res) => {
         data: tutor
     });
     //send an email to the tutor
-    validateEmail(tutorEmail, studentName, courseName);
-
-
+    validateEmail(tutorEmail, fName, lName, courseName);
 })
+
 export const createSession = asyncHandler(async (req, res) => {
     
 })
+
 export const createReview = asyncHandler(async (req, res) => {
 
 })
+
 const generateToken = (id) => {
     return jwt.sign({id}, "abc123", {
         expiresIn: '30d',
