@@ -1,7 +1,6 @@
 .header{
     font-size: 40px;
     position: relative;
-    margin-right: auto;
 }
 .authPage{
     display: flex;
@@ -46,11 +45,12 @@ input{
     color: white;
     background-color: black;
     /*width: 300px;*/
-    width: 100%;
+    width: 323px;
     height: 50px;
     border: none;
     border-radius: 10px;
     font-size: 20px;
+    padding: 10px 10px;
 }
 
 .changeMode{
