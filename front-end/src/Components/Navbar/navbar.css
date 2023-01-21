@@ -1,0 +1,68 @@
+.navbar{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 10vh;
+    background-color: black;
+    flex-direction: row;
+    
+    
+}
+.left{
+    display: flex;
+    flex: 1;
+    align-items: center;
+    font-size: 40px;
+    color: white;
+    margin-left: 50px;
+    font-weight: 900;
+}
+.right{
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    flex-direction: row;
+    flex: 1;
+    
+}
+.link{
+    color: white;
+    text-decoration: none;
+    margin-right: 100px;
+}
+.signin{
+    background-color: black;
+    border: none;
+    color: white;
+    padding: 100% 30px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 20px;
+    transition: all 1s ease;
+    
+}
+.signin:hover{
+    cursor: pointer;
+    background-color: #272727;
+}
+.signout{
+    background-color: black;
+    border: none;
+    color: white;
+    padding: 100% 30px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 20px;
+    transition: all 1s ease;
+    margin-right: 10px;
+    
+}
+.signout:hover{
+    cursor: pointer;
+    background-color: #272727;
+}
