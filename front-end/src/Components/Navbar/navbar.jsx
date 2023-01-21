@@ -9,7 +9,7 @@ export default function Navbar() {
   const navigate = useNavigate();
   const logOut = () => {
     localStorage.clear();
-    navigate('/auth');
+    navigate('/login');
     setUser(null);
 }
   useEffect(() => {
@@ -29,14 +29,14 @@ export default function Navbar() {
                 Go Tutor
             </div>
             <div className="right">
-            <a to = "/" href = "/"><button className = "signin" component = {Link} to = "/">Editor</button></a>
+            <a to = "/" href = "/"><button className = "signin" component = {Link}>Home</button></a>
                 {user?(
                   <>
                     
                     <a><button className = "signout" onClick = {logOut}>Sign Out</button></a>
                   </>
                 ):(
-                  <a to = "/auth" href = "/auth"><button className = "signin" component = {Link} to = "/auth">Log In</button></a>
+                  <a to = "/login" href = "/login"><button className = "signin" component = {Link}>Log In</button></a>
                 )}
             </div>
         </div>

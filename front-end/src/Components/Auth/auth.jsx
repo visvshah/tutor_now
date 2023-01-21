@@ -18,7 +18,7 @@ export default function Auth() {
     }
     const sendLogIn = (e) =>{
         /** 
-        fetch("http://localhost:5001/api/users/login", { method: "POST", body: JSON.stringify(userData), mode: 'cors', headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},contentType: "application/json"})
+        fetch("http://localhost:5001/api/users/login", { method: "POST", body: JSON.stringify(tutorData), mode: 'cors', headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},contentType: "application/json"})
             .then(res => {
                 return res.json()
             })
@@ -36,7 +36,7 @@ export default function Auth() {
 
     const sendSignUp = (e) =>{
         /** 
-        fetch("http://localhost:5001/api/users/signup", { method: "POST", body: JSON.stringify(userData), mode: 'cors', headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},contentType: "application/json"})
+        fetch("http://localhost:5001/api/users/signup", { method: "POST", body: JSON.stringify(tutorData), mode: 'cors', headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},contentType: "application/json"})
             .then(res => {
                 return res.json();
             })
@@ -55,30 +55,55 @@ export default function Auth() {
     const changeMode = () =>{
         changeLogIn(!logIn);
     }
-    const [userData, setUserData] = useState({
+    const [isTutor, setIsTutor] = useState(false)
+
+    const [tutorData, setTutorData] = useState({
         fName: "",
         lName: "",
         email: "",
-        age: "",
-        password: ""
+        //age: "",
+        password: "",
+        classYear: undefined,
+        about: "",
+        profilePicture: "",
+        //interests: [],
+        classesToTutor: [],
+        tutorHistory: [/*tutor, date*/],
+        venmo: "",
+        phoneNumber: "",
+        gpa: undefined,
+        organizations: [],
+        reviews: [],
+        rating: undefined,
+    })
+
+    const [studentData, setStudentData] = useState({
+        fName: "",
+        lName: "",
+        email: "",
+        password: "",
+        classYear: undefined,
+        profilePicture: "",
+        interests: [],
+        classesTaken: [],
     })
 
 return (
     <div>
-        <div className="authPage">
+        {/*<div className="authPage">
             <h1 className = "header" >{logIn ? "Log In" : "Sign Up"}</h1>
             <form autoComplete = "off" validate = "true" className = "form" onSubmit = {handleSubmit}> 
-                <input placeholder = "Your email" id = "email" name = "email" type ="email" onChange = {(e) => setUserData({...userData, email: e.target.value})}/>
+                <input placeholder = "Your email" id = "email" name = "email" type ="email" onChange = {(e) => settutorData({...tutorData, email: e.target.value})}/>
                 { !logIn && (
                     <>
-                        <input placeholder = "Your first name" id = "fName" name = "fName" type ="fName" onChange = {(e) => setUserData({...userData, fName: e.target.value})}/>
-                        <input placeholder = "Your last name" id = "lName" name = "lName" type ="lName" onChange = {(e) => setUserData({...userData, lName: e.target.value})}/>
-                        <input placeholder = "Your age" id = "age" name = "age" type ="age" onChange = {(e) => setUserData({...userData, age: e.target.value})}/>
+                        <input placeholder = "Your first name" id = "fName" name = "fName" type ="fName" onChange = {(e) => settutorData({...tutorData, fName: e.target.value})}/>
+                        <input placeholder = "Your last name" id = "lName" name = "lName" type ="lName" onChange = {(e) => settutorData({...tutorData, lName: e.target.value})}/>
+                        <input placeholder = "Your age" id = "age" name = "age" type ="age" onChange = {(e) => settutorData({...tutorData, age: e.target.value})}/>
                     </>
                     )
                 }
                 
-                <input placeholder = "Enter Password" id = "password" name = "password" type ="password" onChange = {(e) => setUserData({...userData, password: e.target.value})}/>
+                <input placeholder = "Enter Password" id = "password" name = "password" type ="password" onChange = {(e) => settutorData({...tutorData, password: e.target.value})}/>
                 <button className = "submitButton" type="submit" onClick = {handleSubmit}>Submit</button>
                 {error && (
                     <>
@@ -87,7 +112,7 @@ return (
                 )}
             </form>
             <button className = "changeMode" onClick = {changeMode}>{logIn ? "Sign Up Instead" : "Log In instead"}</button>
-        </div>
+        </div>*/}
     </div>
     )
 }
