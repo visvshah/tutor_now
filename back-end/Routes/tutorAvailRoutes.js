@@ -4,7 +4,7 @@ import { createTutorAvail, fetchTutors, requestTutor, createSession, createRevie
 
 router.post('/create', createTutorAvail);
 router.patch('/fetch', fetchTutors);
-
+router.patch('/request', requestTutor);
 
 
 
