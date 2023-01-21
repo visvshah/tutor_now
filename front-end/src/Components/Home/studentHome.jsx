@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import "./studentHome.css"
 export default function StudentHome({user}) {
-    const [didReq, setDidReq] = useState(true);
+    const [didReq, setDidReq] = useState(false);
     const [request, changeRequest] = useState({
         studentId : user._id,
         class: "",
