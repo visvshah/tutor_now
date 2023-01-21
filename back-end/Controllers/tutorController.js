@@ -87,6 +87,13 @@ export const loginTutor = asyncHandler(async (req, res) => {
     }
 })
 
+export const getTutors = asyncHandler(async (req, res) => {
+    //sends back res.json with all tutor info.
+    tutorModel.find()
+    .then(tutors => res.json(tutors))
+    .catch(err => res.status(400).json('Error: ' + err));
+})
+
 export const getTutor = asyncHandler(async (req, res) => {
      //sends back res.json with all tutor info. (argument is tutor id)
     
@@ -98,8 +105,7 @@ export const getTutor = asyncHandler(async (req, res) => {
         number: tutor.number,
         venmo: tutor.venmo,
         school: tutor.school,
-        classYear: tutor.classYear,
-        token: studentToken,}))
+        classYear: tutor.classYear,}))
     .catch(err => res.status(400).json('Error: ' + err));
      
 })

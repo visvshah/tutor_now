@@ -75,6 +75,12 @@ export const loginStudent = asyncHandler(async (req, res) => {
     }
 })
 
+//get all students
+export const getStudents = asyncHandler(async (req, res) => {
+    const students = await studentModel.find({});
+    res.json(students);
+})
+
 export const getStudent = asyncHandler(async (req, res) => {
     //sends back res.json with all student info. (argument is student id)
     studentModel.findById(req.params.id)
@@ -85,8 +91,7 @@ export const getStudent = asyncHandler(async (req, res) => {
         number: student.number,
         venmo: student.venmo,
         school: student.school,
-        classYear: student.classYear,
-        token: studentToken,}))
+        classYear: student.classYear,}))
     .catch(err => res.status(400).json('Error: ' + err));
 })
 
