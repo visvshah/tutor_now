@@ -5,7 +5,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import express from "express";
 import nodemailer from "nodemailer";
-let usermail = "jogsoham2003@gmail.com";
+let usermail = "";
     
 let transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
@@ -21,17 +21,18 @@ let transporter = nodemailer.createTransport({
 // Generate a random OTP
 let otp = Math.floor(100000 + Math.random() * 900000);
 
-// Create the email messagef
-let mailOptions = {
-    from: "Thanatos",
-    to: usermail,
-    subject: 'One-Time Password',
-    text: `Your OTP is: ${otp}`
-};
+
+
 
 
 export const validateEmail = (email) => {
     usermail = email;
+    let mailOptions = {
+        from: "Thanatos",
+        to: usermail,
+        subject: 'One-Time Password',
+        text: `Your OTP is: ${otp}`
+    };
     console.log(usermail);
     try {
         console.log("Sending OTP...");
