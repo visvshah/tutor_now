@@ -5,4 +5,6 @@ import { registerStudent, loginStudent} from '../Controllers/studentController.j
 router.post('/signup', registerStudent);
 router.post('/login', loginStudent);
 
+
+
 export default router;
