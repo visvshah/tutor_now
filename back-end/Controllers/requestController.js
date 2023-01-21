@@ -59,16 +59,6 @@ export const loginStudent = asyncHandler(async (req, res) => {
         throw new Error('Invalid credentials');
     }
 })
-
-export const sendStudentDetails = asyncHandler(async (req, res) => {
-    
-})
-export const createSession = asyncHandler(async (req, res) => {
-    
-})
-export const createReview = asyncHandler(async (req, res) => {
-
-})
 const generateToken = (id) => {
     return jwt.sign({id}, "abc123", {
         expiresIn: '30d',
