@@ -9,35 +9,13 @@ export const createTutorAvail = asyncHandler(async (req, res) => {
 })
 
 
-export const loginTutor = asyncHandler(async (req, res) => {
-    const {email, password} = req.body
-    const tutor = await tutorModel.findOne({email})
-    if(tutor && (await bcrypt.compare(password, tutor.password))) {
-        const tutorToken = jwt.sign({fName:tutor.fName, lName:tutor.lName, email:tutor.email, _id: tutor._id}, "profile", {expiresIn: "1h"});
-        res.json({
-            _id: tutor.id,
-            _id: tutor.id,
-            fName: tutor.fName,
-            lName: tutor.lName,
-            email: tutor.email,
-            number: tutor.number,
-            venmo: tutor.venmo,
-            school: tutor.school,
-            classYear: tutor.classYear,
-            classes: tutor.classes,
-            gpa: tutor.gpa,
-            about: tutor.about,
-            token: tutorToken,
-            type: 2,
-        })
-    } else {
-        res.status(400);
-        throw new Error('Invalid credentials');
-    }
+export const fetchTutors = asyncHandler(async (req, res) => {
+   //creates an array of able to teach the class in the req.body
 })
 
-export const sendtutorDetails = asyncHandler(async (req, res) => {
-    
+export const requestTutor = asyncHandler(async (req, res) => {
+    //in the req.body there should be a studentid and coursename
+    //Update tutor's studentId to match the requesting student's id and update tutor's course to reflect the course they have to tutor
 })
 export const createSession = asyncHandler(async (req, res) => {
     
