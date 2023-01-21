@@ -4,83 +4,90 @@ import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import express from "express";
-export const registerUser = asyncHandler(async (req, res) => {
+export const registerTutor = asyncHandler(async (req, res) => {
     const { fName, lName, email, age, password} = await req.body;
-    
-    /**
-    if(!fname.length > 0 || !lname.length > 0 ||!email.length > 0 || !password.length > 0 || !age.length > 0) {
-        res.status(400)
-        throw new Error('Please add all fields')
-    }
-    
-    // Hash password
-    const hashedPassword = await bcrypt.hash(password, 12)
-    // Check if user exists
-    const userExists = await userModel.findOne({email})
-    if(userExists) {
-        res.status(400)
-        throw new Error('User already exists')
-    }
-    // Create user
-    const user = await userModel.create({
-        fName,
-        lName,
-        email,
-        age,
-        password: hashedPassword,
-        board1: "",
-        board2: "",
-        board3: "",
-    })
-    const userToken = jwt.sign({fName, lName, email, id: user._id}, "profile", {expiresIn: "1h"});
-    if(user) {
-        res.status(201).json({
-            _id: user.id,
-            fName: user.fName,
-            lName: user.lName,
-            email: user.email,
-            age: user.age,
-            password: user.password,
-            board1: user.board1,
-            board2: user.board2,
-            board3: user.board3,
-            token: userToken,
-        })
         
-    } else {
-        res.status(400);
-        throw new Error('Invalid user data');
-    }
-    */
+        if(!fname.length > 0 || !lname.length > 0 ||!email.length > 0 || !password.length > 0 || !age.length > 0) {
+            res.status(400)
+            throw new Error('Please add all fields')
+        }
+        
+        // Hash password
+        const hashedPassword = await bcrypt.hash(password, 12)
+        // Check if tutor exists
+        const tutorExists = await tutorModel.findOne({email})
+        if(tutorExists) {
+            res.status(400)
+            throw new Error('tutor already exists')
+        }
+        // Create tutor
+        const tutor = await tutorModel.create({
+            fName,
+            lName,
+            email,
+            number,
+            venmo,
+            password: hashedPassword,
+            school,
+            classYear,
+            classes,
+            gpa,
+            about,
+            
+        })
+        const tutorToken = jwt.sign({fName, lName, email, id: tutor._id}, "profile", {expiresIn: "1h"});
+        if(tutor) {
+            res.status(201).json({
+                _id: tutor.id,
+                fName: tutor.fName,
+                lName: tutor.lName,
+                email: tutor.email,
+                number: tutor.number,
+                venmo: tutor.venmo,
+                password: tutor.password,
+                school: tutor.school,
+                classYear: tutor.classYear,
+                classes: tutor.classes,
+                gpa: tutor.gpa,
+                about: tutor.about,
+                token: tutorToken,
+            })
+            
+        } else {
+            res.status(400);
+            throw new Error('Invalid tutor data');
+        }
 })
 
 
-export const loginUser = asyncHandler(async (req, res) => {
-    /** 
+export const loginTutor = asyncHandler(async (req, res) => {
     const {email, password} = req.body
-    const user = await userModel.findOne({email})
-    if(user && (await bcrypt.compare(password, user.password))) {
-        const userToken = jwt.sign({fName:user.fName, lName:user.lName, email:user.email, _id: user._id}, "profile", {expiresIn: "1h"});
+    const tutor = await tutorModel.findOne({email})
+    if(tutor && (await bcrypt.compare(password, tutor.password))) {
+        const tutorToken = jwt.sign({fName:tutor.fName, lName:tutor.lName, email:tutor.email, _id: tutor._id}, "profile", {expiresIn: "1h"});
         res.json({
-            _id: user.id,
-            fName: user.fName,
-            lName: user.lName,
-            email: user.email,
-            age: user.age,
-            password: user.password,
-            board1: user.board1,
-            board2: user.board2,
-            board3: user.board3,
-            token: userToken,
+            _id: tutor.id,
+            _id: tutor.id,
+            fName: tutor.fName,
+            lName: tutor.lName,
+            email: tutor.email,
+            number: tutor.number,
+            venmo: tutor.venmo,
+            password: tutor.password,
+            school: tutor.school,
+            classYear: tutor.classYear,
+            classes: tutor.classes,
+            gpa: tutor.gpa,
+            about: tutor.about,
+            token: tutorToken,
         })
     } else {
         res.status(400);
         throw new Error('Invalid credentials');
     }
-    */
 })
 
-export const updateUser = asyncHandler(async (req, res) => {
+export const sendtutorDetails = asyncHandler(async (req, res) => {
     
 })
 export const createSession = asyncHandler(async (req, res) => {

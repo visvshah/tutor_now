@@ -29,6 +29,10 @@ const studentSchema = mongoose.Schema({
         type: String,
         required: [true, 'Please add a password']
     },
+    school: {
+        type: String,
+        required: [true]
+    },
     classYear: {
         type: Number,
         required: [false]
