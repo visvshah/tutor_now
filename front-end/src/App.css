@@ -1,4 +1,6 @@
 .App{
   display: flex;
   flex-direction: column;
+  scrollbar-width: none;
+  scroll-behavior: smooth;
 }
