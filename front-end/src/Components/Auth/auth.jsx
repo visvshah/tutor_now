@@ -113,17 +113,17 @@ return (
                     <div className="projectHolder">
                         <h1 className = "header" >{logIn ? "Log In" : "Sign Up"}</h1>
                         
-                        <input placeholder = "Your email" id = "email" name = "email" type ="email" onChange = {(e) => settutorData({...tutorData, email: e.target.value})}/>
+                        <input placeholder = "Your email" id = "email" name = "email" type ="email" onChange = {(e) => setTutorData({...tutorData, email: e.target.value})}/>
                         { !logIn && (
                             <>
-                                <input placeholder = "Your first name" id = "fName" name = "fName" type ="fName" onChange = {(e) => settutorData({...tutorData, fName: e.target.value})}/>
-                                <input placeholder = "Your last name" id = "lName" name = "lName" type ="lName" onChange = {(e) => settutorData({...tutorData, lName: e.target.value})}/>
-                                <input placeholder = "Your age" id = "age" name = "age" type ="age" onChange = {(e) => settutorData({...tutorData, age: e.target.value})}/>
+                                <input placeholder = "Your first name" id = "fName" name = "fName" type ="fName" onChange = {(e) => setTutorData({...tutorData, fName: e.target.value})}/>
+                                <input placeholder = "Your last name" id = "lName" name = "lName" type ="lName" onChange = {(e) => setTutorData({...tutorData, lName: e.target.value})}/>
+                                <input placeholder = "Your age" id = "age" name = "age" type ="age" onChange = {(e) => setTutorData({...tutorData, age: e.target.value})}/>
                             </>
                             )
                         }
                         
-                        <input placeholder = "Enter Password" id = "password" name = "password" type ="password" onChange = {(e) => settutorData({...tutorData, password: e.target.value})}/>
+                        <input placeholder = "Enter Password" id = "password" name = "password" type ="password" onChange = {(e) => setTutorData({...tutorData, password: e.target.value})}/>
                         { logIn && (
                             <button className = "submitButton" type="submit" onClick = {handleSubmit}>Submit</button>
                         )}
@@ -137,8 +137,14 @@ return (
                     </div>
                 </div>
             </form>
-            <button onClick = {()=>moveLeft()} className='leftArrow'>Back</button>
-            <button onClick = {()=>moveRight()} className = 'rightArrow'>Next</button>
+            {(currentPage != 0) && (
+                <button onClick = {()=>moveLeft()} className='leftArrow'>Back</button>
+            )
+            }
+            {(currentPage != 2) && (
+                 <button onClick = {()=>moveRight()} className = 'rightArrow'>Next</button>
+            )
+            }
         </div>
     )
 }

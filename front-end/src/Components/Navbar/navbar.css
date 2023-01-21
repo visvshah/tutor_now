@@ -24,7 +24,6 @@
     align-items: center;
     flex-direction: row;
     flex: 1;
-    
 }
 .link{
     color: white;
@@ -32,10 +31,10 @@
     margin-right: 100px;
 }
 .signin{
-    background-color: black;
+    background-color: #272727;
     border: none;
     color: white;
-    padding: 100% 30px;
+    padding: 10% 30px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
