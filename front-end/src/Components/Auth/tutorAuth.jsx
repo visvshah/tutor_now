@@ -40,7 +40,6 @@ export default function TutorAuth() {
             })
             .then(data => {
                 localStorage.setItem("profile", JSON.stringify(data));
-                navigate('/');
             })
         .catch(e => {
             console.log(e)
@@ -81,10 +80,15 @@ export default function TutorAuth() {
         gpa: "",
         about: "",
     })
-
+    const exitButton = (e) => {
+        window.location.reload(true);
+        console.log("Hello")
+    }
 
     return (
         <div className="authPage">
+            <h1 className="header">Tutor</h1>
+            <button onClick={() => exitButton()} className='exitButton'>Exit</button>
             <form autoComplete="off" validate="true" className="form" onSubmit={handleSubmit}>
                 <div className="projectSlider" style={{ transform: `translateX(-${currentPage * 100}vw)` }}>
                     <div className="projectHolder">

@@ -61,8 +61,8 @@ export default function StudentAuth() {
         })
     }
 
-    const changeMode = (e) => {
-        e.preventDefault();
+    const changeMode = (event) => {
+        event.preventDefault();;
         changeLogIn(!logIn);
     }
 
@@ -78,10 +78,15 @@ export default function StudentAuth() {
         school: "",
         classYear: ""
     })
-
+    const exitButton = (e) => {
+        window.location.reload(true);
+        console.log("Hello")
+    }
 
     return (
         <div className="authPage">
+            <h1 className="header">Student</h1>
+            <button onClick={() => exitButton()} className='exitButton'>Exit</button>
             <form autoComplete="off" validate="true" className="form" onSubmit={handleSubmit}>
                 <div className="projectSlider" style={{ transform: `translateX(-${currentPage * 100}vw)` }}>
                     <div className="projectHolder">

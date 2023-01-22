@@ -110,24 +110,7 @@ button:hover{
     font-weight: 700;
     transition: all 1s ease;
 }
-.projects{
-    background-color: mainColor;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    overflow: hidden;
-}
-.projectHeader{
-    color: white;
-    font-weight: 700;
-    font-size: 70px;
-    position: absolute;
-    top: 45%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+
 .leftArrow{
     font-size: 20px;
     color: white;
@@ -164,7 +147,7 @@ button:hover{
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+
     overflow: hidden;
 }
 .tutorButton{
@@ -196,4 +179,15 @@ button:hover{
     border-radius: 10px;
     font-size: 20px;
     padding: 10px 10px;
+}
+.exitButton {
+    font-size: 20px;
+    color: white;
+    background-color: black;
+    position: absolute;
+    left: 30px;
+    top: 100px;
+    cursor: pointer;
+    border-radius: 10px;
+    padding: .5%;
 }
