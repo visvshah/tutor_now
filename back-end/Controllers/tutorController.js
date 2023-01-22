@@ -124,7 +124,20 @@ export const createSession = asyncHandler(async (req, res) => {
     
 })
 export const createReview = asyncHandler(async (req, res) => {
-
+    const {_id, review} = req.body;
+    const tutor = await tutorModel.findOne({_id})
+    var reviews = tutor.ratingUsers;
+    var rating = tutor.rating;
+    const newRating = ((reviews * rating) + review) / reviews + 1;
+    await tutorModel.findOneAndUpdate({_id: _id}, {rating: newRating});
+    await tutorModel.findOneAndUpdate({_id: _id}, {reviews: reviews + 1});
+    tutor[0].tutorAvail = false;
+    tutor[0].courseToTutor = courseName;
+    let tutorEmail = tutor[0].email;
+    
+    console.log(tutor[0].studentId)
+    tutor[0].studentId = studentId;
+    console.log(tutor[0].studentId)
 })
 const generateToken = (id) => {
     return jwt.sign({id}, "abc123", {
