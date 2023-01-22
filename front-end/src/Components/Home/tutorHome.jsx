@@ -1,6 +1,15 @@
 import React, {useState} from 'react'
 import "./studentHome.css"
 import "./tutorHome.css"
+import io from "socket.io-client"
+import "../chat.css"
+import Chat from '../Chat.js'
+
+
+
+const socket = io.connect("http://localhost:3001");
+
+
 export default function TutorHome({user}) {
 
     console.log(user.email)
@@ -68,8 +77,16 @@ export default function TutorHome({user}) {
     
   return (
     <div className="studentHome">
-                <div className={'leftHome ' + (isAvailable && 'active')}>
-                    
+                <div className={'leftHome ' + (finished && 'active')}>
+                 {finished && (
+                        <div className="finishPage">
+                             <Chat 
+                            username={user.fName + " " + user.lName}
+                            room = {1}
+                            socket = {socket}
+                            />
+                        </div>
+                    )}
                 </div>
                 <div className="rightHome">
                         {!finished && (

@@ -1,6 +1,15 @@
 import React, {useState} from 'react'
 import "./studentHome.css"
+import "../chat.css"
+import Chat from '../Chat.js'
+import io from "socket.io-client"
+
+
+const socket = io.connect("http://localhost:3001");
+
+
 export default function StudentHome({user}) {
+
     const [didReq, setDidReq] = useState(false);
     const [request, changeRequest] = useState({
         studentId: user._id,
@@ -70,7 +79,8 @@ export default function StudentHome({user}) {
                 return res.json()
             })
             .then(data => {
-                setFinished(true);
+                setFinished(false);
+                setDidReq(false);
                 setActualTutor(JSON.stringify(data));
             })
         .catch(e => {
@@ -104,6 +114,16 @@ export default function StudentHome({user}) {
                                 </div>
                             ))}
                         </>
+                    )}
+                    {finished && (
+                        <div className="finishPage">
+                            <Chat 
+                            username={user.fName + " " + user.lName}
+                            room = {1}
+                            socket = {socket}
+                            />
+
+                        </div>
                     )}
 
                 </div>
