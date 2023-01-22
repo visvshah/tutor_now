@@ -87,15 +87,17 @@ export const requestTutor = asyncHandler(async (req, res) => {
     tutor[0].tutorAvail = false;
     tutor[0].courseToTutor = courseName;
     let tutorEmail = tutor[0].email;
+
     console.log(tutorEmail)
    // await tutor.save()
 
     res.status(200).json({
         success: true,
-        data: tutor
+        data: tutor[0]
     });
     //send an email to the tutor
     validateEmail(tutorEmail, fName, lName, courseName);
+    tutorAvailModel.findByIdAndDelete({_id: tutorId})
 })
 
 

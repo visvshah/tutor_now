@@ -38,7 +38,7 @@ export default function StudentHome({user}) {
             console.log(e)
         })
     }
-    const handleRequest = (tutorId) =>{
+    const handleRequest = (tutorId, num) =>{
         console.log(tutorId)
         console.log(request.courseName)
         //changeBooking(prev => ({...prev, studentId: booking.studentId, courseName: request.courseName, tutorId: tutorId}))
@@ -55,7 +55,9 @@ export default function StudentHome({user}) {
             })
             .then(data => {
                 setFinished(true);
-                setActualTutor(JSON.stringify(data));
+                setActualTutor(tutors[num]);
+
+                console.log(actualTutor);
             })
         .catch(e => {
             console.log(e)
@@ -63,45 +65,67 @@ export default function StudentHome({user}) {
     }
   return (
     <div className="studentHome">
-        {!finished && (
-            <>
                 <div className={'leftHome ' + (didReq && 'active')}>
-                    {(tutors.length == 0) && (
+                    {!finished && (
                         <>
-                            No Available Tutors!
+                            {(tutors.length == 0) && (
+                                <>
+                                    No Available Tutors!
+                                </>
+                            )}
+                            {tutors.map((tutor, num) =>(
+                                <div className = "tutorInfo" key = {num}>
+                                    <div className="topHeader">
+                                        <h1>{tutor.fName + " " + tutor.lName}</h1>
+                                    </div>
+                                    <div className="bottomInformation">
+                                        <div className="lowerInformation">
+                                            <p className="informationP">{"Rating: " + tutor.rating}</p>
+                                            <p className="informationP">{"GPA: " + tutor.gpa}</p>
+                                            <p className="informationP">{"Class: " + tutor.classYear}</p>
+                                        </div>
+                                        <button className = "requestTutorButton" type="submit" onClick = {()=> handleRequest(tutor.tutorId, num)}>Request</button>
+                                    </div>
+                                    
+                                </div>
+                            ))}
                         </>
                     )}
-                    {tutors.map((tutor, num) =>(
-                        <div className = "tutorInfo" key = {num}>
-                            <h1>{tutor.fName + " " + tutor.lName}</h1>
-                            <h1>{"Rating: " + tutor.rating}</h1>
-                            <button className = "submitButton" type="submit" onClick = {()=> handleRequest(tutor.tutorId)}>Request</button>
-                            {console.log("*****")}
-                            {console.log(tutor)}
-                        </div>
-                    ))}
                 </div>
                 <div className="rightHome">
-                    <h1 className ="heading">Tutor Now: $10.22/hour</h1>
-                    <form autoComplete = "off" validate = "true" className = "form" onSubmit = {handleSubmit}>
-                        <input placeholder = "What class do you need help with?" id = "class" name = "class" type ="class" onChange = {(e) => changeRequest({...request, courseName: e.target.value})}/> 
-                        <button className = "submitButton" type="submit" onClick = {handleSubmit}>Submit</button>
-                    </form>
+                    {!finished && (
+                        <>
+                            <h1 className ="heading">Tutor Now: $10.22/hour</h1>
+                            <form autoComplete = "off" validate = "true" className = "form" onSubmit = {handleSubmit}>
+                                <input placeholder = "What class do you need help with?" id = "class" name = "class" type ="class" onChange = {(e) => changeRequest({...request, courseName: e.target.value})}/> 
+                                <button className = "submitButton" type="submit" onClick = {handleSubmit}>Submit</button>
+                            </form>
+                        </>
+                    )}
+                    {finished && (
+                        <div className="finishPage">
+                            <h1 className='tutorEndHeader'>Congrats! Here is your tutor:</h1>
+                            <div className="finishPage">
+                                    
+                                    <div className="bigNameHeader">
+                                        <h1>{actualTutor.fName + " " + actualTutor.lName}</h1>
+                                    </div>
+                                    <div className="bottomInformation">
+                                        <div className="lowerInformation">
+                                            <p className="informationPa">{"School :" + actualTutor.school}</p>
+                                            <p className="informationPa">{"Phone :" + actualTutor.number}</p>
+                                            <p className="informationPa">{"Email :" + actualTutor.email}</p>
+                                            <p className="informationPa">{"Venmo :" + actualTutor.venmo}</p>
+                                            <p className="informationPa">{"About :" + actualTutor.about}</p>
+                                        </div>
+                                    </div>
+                            
+                            </div>
+                        </div>
+                    )}
                 </div>
-            </>
-        )}
-        {finished && (
-            <div className="finishPage">
-                <h1>Congrats! Here is your tutor:</h1>
-                <div className="header">
-                    <h2>{actualTutor.fName + " " + actualTutor.lName}</h2>
-                    <h2>{"School :" + actualTutor.school}</h2>
-                    <h2>{"Phone :" + actualTutor.phone}</h2>
-                    <h2>{"Email :" + actualTutor.email}</h2>
-                    <h2>{"Venmo :" + actualTutor.venmo}</h2>
-                </div>
-            </div>
-        )}
+
+        
     </div>
   )
 }

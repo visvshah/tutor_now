@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function StudentAuth() {
     const [currentPage, changePage] = useState(0);
+    const [isError, changeIsError] = useState(false);
     const moveLeft = () => {
         if (currentPage > 0) {
             changePage(currentPage - 1);

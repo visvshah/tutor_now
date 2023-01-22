@@ -67,3 +67,28 @@ margin-left: 20px;
     justify-content: space-between;
     
 }
+.finishPage {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    height: 70vh;
+    background-color: #F9F6EE;
+    margin-top: 20px;
+    border-radius: 20px;
+    padding-bottom: 20px;
+}
+.bigNameHeader {
+    font-size: 35px;
+    text-align: left;
+}
+.bigNameHeader{
+    margin-left: 20px;
+}
+.tutorEndHeader{
+    margin-left: 20px;
+}
+.informationPa {
+    margin-top: 15px;
+    font-size: 20px;
+    margin-left: 20px;
+}
