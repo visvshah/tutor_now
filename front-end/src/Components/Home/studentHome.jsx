@@ -38,7 +38,8 @@ export default function StudentHome({user}) {
             console.log(e)
         })
     }
-    const handleRequest = (tutorId, num) =>{
+
+    const handleRequest = (tutorId, actualId, num) =>{
         console.log(tutorId)
         console.log(request.courseName)
         //changeBooking(prev => ({...prev, studentId: booking.studentId, courseName: request.courseName, tutorId: tutorId}))
@@ -58,6 +59,21 @@ export default function StudentHome({user}) {
                 setActualTutor(tutors[num]);
 
                 console.log(actualTutor);
+            })
+        .catch(e => {
+            console.log(e)
+        })
+        //delete from tutorsavails through the
+        
+        
+
+        fetch("http://localhost:5001/api/tutorsavails/" + actualId, { method: "DELETE", mode: 'cors', headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},contentType: "application/json"})
+            .then(res => {
+                return res.json()
+            })
+            .then(data => {
+                setFinished(true);
+                setActualTutor(JSON.stringify(data));
             })
         .catch(e => {
             console.log(e)
@@ -84,13 +100,14 @@ export default function StudentHome({user}) {
                                             <p className="informationP">{"GPA: " + tutor.gpa}</p>
                                             <p className="informationP">{"Class: " + tutor.classYear}</p>
                                         </div>
-                                        <button className = "requestTutorButton" type="submit" onClick = {()=> handleRequest(tutor.tutorId, num)}>Request</button>
+                                        <button className = "requestTutorButton" type="submit" onClick = {()=> handleRequest(tutor.tutorId, tutor._id, num)}>Request</button>
                                     </div>
                                     
                                 </div>
                             ))}
                         </>
                     )}
+
                 </div>
                 <div className="rightHome">
                     {!finished && (
