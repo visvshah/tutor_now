@@ -4,7 +4,9 @@ import { useNavigate } from "react-router-dom";
 
 export default function TutorAuth() {
     const [currentPage, changePage] = useState(0);
-    const moveLeft = (e) => {
+    const [isError, changeIsError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
+    const moveLeft = () => {
         if (currentPage > 0) {
             changePage(currentPage - 1);
         }
@@ -39,11 +41,14 @@ export default function TutorAuth() {
                 return res.json()
             })
             .then(data => {
+                changeIsError(false)
                 localStorage.setItem("profile", JSON.stringify(data));
                 navigate('/');
             })
         .catch(e => {
             console.log(e)
+            setErrorMessage("Error: Invalid Credentials")
+            changeIsError(true)
         })
     }
 
@@ -53,11 +58,14 @@ export default function TutorAuth() {
                 return res.json();
             })
             .then(data => {
+                changeIsError(false)
                 localStorage.setItem("profile", JSON.stringify(data));
                 navigate('/');
             })
         .catch(e => {
             console.log(e)
+            setErrorMessage("Error: Invalid Credentials")
+            changeIsError(true)
         })
     }
 
@@ -99,6 +107,7 @@ export default function TutorAuth() {
                                 <input placeholder="Your email" id="email" name="email" type="email" onChange={(e) => setTutorData({ ...tutorData, email: e.target.value })} />
                                 <input placeholder="Enter Password" id="password" name="password" type="password" onChange={(e) => setTutorData({ ...tutorData, password: e.target.value })} />
                                 <button className="submitButton" type="submit" onClick={handleSubmit}>{/*logIn ? "Next" :*/ "Submit"}</button>
+                                {isError && <p className="error">{errorMessage}</p>}
                             </>
                         )}
                         {!logIn && (
@@ -107,7 +116,9 @@ export default function TutorAuth() {
                                 <input placeholder="Your last name" id="lName" name="lName" type="lName" onChange={(e) => setTutorData({ ...tutorData, lName: e.target.value })} />
                                 <input placeholder="Your email" id="email" name="email" type="email" onChange={(e) => setTutorData({ ...tutorData, email: e.target.value })} />
                                 <input placeholder="Enter Password" id="password" name="password" type="password" onChange={(e) => setTutorData({ ...tutorData, password: e.target.value })} />
+
                                 <div onClick={() => moveRight()} className='rightArrow'>Next</div>
+
                             </>
                         )}
                         <button className="changeMode" onClick={changeMode}>{!logIn ? "Log In Instead" : "Sign Up instead"}</button>
@@ -117,8 +128,13 @@ export default function TutorAuth() {
                         <input placeholder="What school do you go to?" id="school" name="school" type="school" onChange={(e) => setTutorData({ ...tutorData, school: e.target.value })} />
                         <input placeholder="What is your class standing?" id="classYear" name="classYear" type="classYear" onChange={(e) => setTutorData({ ...tutorData, classYear: e.target.value })} />
                         <input placeholder="What is your GPA?" id="gpa" name="gpa" type="gpa" onChange={(e) => setTutorData({ ...tutorData, gpa: e.target.value })} />
+
                         <div onClick={() => moveRight()} className='rightArrow'>Next</div>
                             
+
+
+                        
+
                     </div>
                     <div className="projectHolder">
                         <h1 className="header">Tell us even more about yourself</h1>
@@ -126,12 +142,18 @@ export default function TutorAuth() {
                         <input placeholder="What is your venmo?" id="venmo" name="venmo" type="venmo" onChange={(e) => setTutorData({ ...tutorData, venmo: e.target.value })} />
                         <input placeholder="What courses would you tutor?" id="classes" name="classes" type="classes" onChange={(e) => setTutorData({ ...tutorData, classes: e.target.value })} />
                         <p>*Seperate the courses by using a "," and enter a coure with in standard form (ex. CS18000)</p>
+
                         <div onClick={() => moveRight()} className='rightArrow'>Next</div>
+
+
+                        
+
                     </div>
                     <div className="projectHolder">
                         <h1 className="header">Lastly,</h1>
                         <textarea className = "aboutInput" placeholder="Tell use about yourself!" id="about" name="about" onChange={(e) => setTutorData({ ...tutorData, numbabouter: e.target.value })} />
                         <button className="submitButton" type="submit" onClick={handleSubmit}>{/*logIn ? "Next" :*/ "Submit"}</button>
+                        {isError && <p className="error">{errorMessage}</p>}
                     </div>
                 </div>
                 {(currentPage > 0) && (

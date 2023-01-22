@@ -5,9 +5,9 @@ import Chat from "./Chat.js"
 
 const socket = io.connect("http://localhost:3001");
 
-function App() {
-  const [username, setUsername] = useState("");
-  const [room, setRoom] = useState("");
+function ChatApp(username, room) {
+  {/*const [username, setUsername] = useState("");
+const [room, setRoom] = useState("");*/}
   const [showChat, setShowChat] = useState(false);
 
   const joinRoom = () => {
@@ -22,7 +22,7 @@ function App() {
       {!showChat ? (
         < div className="joinChatContainer">
           <h3>Join A Chat</h3>
-          <input type="text" placeholder="John..."
+          {/*<input type="text" placeholder="John..."
             onChange={(event) => {
               setUsername(event.target.value);
             }}
@@ -31,7 +31,7 @@ function App() {
             onChange={(event) => {
               setRoom(event.target.value);
             }}
-          />
+          />*/}
           <button onClick={joinRoom}>Join A Room</button>
         </div>
       )
@@ -43,4 +43,4 @@ function App() {
   );
 }
 
-export default App;
+export default ChatApp;

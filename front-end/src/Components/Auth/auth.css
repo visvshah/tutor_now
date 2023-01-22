@@ -198,3 +198,13 @@ button:hover{
     border-radius: 10px;
     padding: .5%;
 }
+.error {
+    font-size: 10px;
+    color: pink;
+    background-color: red;
+    position: absolute;
+    bottom: 200px;
+    cursor: pointer;
+    border-radius: 10px;
+    padding: .5%;
+}
