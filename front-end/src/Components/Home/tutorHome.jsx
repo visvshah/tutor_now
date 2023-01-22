@@ -36,7 +36,7 @@ export default function TutorHome({user}) {
             console.log(data);
             if(data.studentId) {
                 getStudentDetails(data.studentId);
-                localStorage.setItem("profile", data);
+                // localStorage.setItem("profile", data);
                 console.log("There is a student id");
             }
             else {
@@ -57,6 +57,7 @@ export default function TutorHome({user}) {
             .then(data => {
                 console.log("in second then");
                 console.log(data);
+                setStudent(data);
                 setFinished(true);
             })
         .catch(e => {
@@ -90,16 +91,20 @@ export default function TutorHome({user}) {
                             </>
                         )}
                         {finished && (
-                            <div className="studentHolder">
-                                <h1>You have been matched with a Student!</h1>
-                                <div className="leftSudentDisplay">
-                                    <h1 className="header">{student.fName + " " + student.lName}</h1>
-                                    <h2 className="header">{"Class :" + student.class}</h2>
-                                    <h2 className="header">{" :" + student.class}</h2>
-                                    <h2>{"Phone :" + student.phone}</h2>
-                                    <h2>{"Email :" + student.email}</h2>
-                                    <h2>{"Venmo :" + student.venmo}</h2>
+                            <div className="finishPage">      
+                                <h1 className='tutorEndHeader'>Congrats! Here is your Student:</h1>
+                                <div className="bigNameHeader">
+                                    <h1>{student.fName + " " + student.lName}</h1>
                                 </div>
+                                <div className="bottomInformation">
+                                    <div className="lowerInformation">
+                                        <p className="informationPa">{"Class Year :" + student.classYear}</p>
+                                        <p className="informationPa">{"Phone :" + student.number}</p>
+                                        <p className="informationPa">{"Email :" + student.email}</p>
+                                        <p className="informationPa">{"Venmo :" + student.venmo}</p>
+                                    </div>
+                                </div>
+                    
                             </div>
                         )}
 
