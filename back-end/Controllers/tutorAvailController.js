@@ -80,11 +80,15 @@ export const requestTutor = asyncHandler(async (req, res) => {
     const student = await studentModel.findOne({studentId})
     let fName = student.fName;
     let lName = student.lName;
-    const tutor = await tutorModel.findOne({tutorId})
-    tutor.tutorAvail = false;
-    tutor.courseToTutor = courseName;
-    let tutorEmail = tutor.email;
-    await tutor.save()
+    const tutor = await tutorModel.find({_id: tutorId})
+    //debug
+    console.log(tutor)
+
+    tutor[0].tutorAvail = false;
+    tutor[0].courseToTutor = courseName;
+    let tutorEmail = tutor[0].email;
+    console.log(tutorEmail)
+   // await tutor.save()
 
     res.status(200).json({
         success: true,

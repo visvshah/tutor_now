@@ -3,7 +3,7 @@ import "./studentHome.css"
 export default function StudentHome({user}) {
     const [didReq, setDidReq] = useState(false);
     const [request, changeRequest] = useState({
-        studentId: "",
+        studentId: user._id,
         courseName: "",
     })
     const [booking, changeBooking] = useState({
@@ -16,7 +16,11 @@ export default function StudentHome({user}) {
     const [actualTutor, setActualTutor] = useState();
     const handleSubmit = (event) =>{
         event.preventDefault();
+        console.log(request)
         changeRequest({...request, studentId: user._id})
+        changeRequest({...request, courseName: request.courseName})
+
+
         fetch("http://localhost:5001/api/tutorsavails/fetch", { method: "PATCH", body: JSON.stringify(request), mode: 'cors', headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},contentType: "application/json"})
             .then(res => {
                 return res.json()
@@ -36,11 +40,16 @@ export default function StudentHome({user}) {
     }
     const handleRequest = (tutorId) =>{
         console.log(tutorId)
-        changeBooking({...booking, tutorId: tutorId, courseName: request.courseName})
+        console.log(request.courseName)
+        //changeBooking(prev => ({...prev, studentId: booking.studentId, courseName: request.courseName, tutorId: tutorId}))
+        changeBooking({...booking, studentId: booking.studentId})
+        changeBooking({...booking, courseName: request.courseName})
 
         console.log("booking: ")
         console.log(booking)
-        fetch("http://localhost:5001/api/tutorsavails/request", { method: "PATCH", body: JSON.stringify(booking), mode: 'cors', headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},contentType: "application/json"})
+
+
+        fetch("http://localhost:5001/api/tutorsavails/request", { method: "PATCH", body: JSON.stringify({studentId: booking.studentId, courseName: request.courseName, tutorId: tutorId}), mode: 'cors', headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},contentType: "application/json"})
             .then(res => {
                 return res.json()
             })
@@ -67,6 +76,8 @@ export default function StudentHome({user}) {
                             <h1>{tutor.fName + " " + tutor.lName}</h1>
                             <h1>{"Rating: " + tutor.rating}</h1>
                             <button className = "submitButton" type="submit" onClick = {()=> handleRequest(tutor.tutorId)}>Request</button>
+                            {console.log("*****")}
+                            {console.log(tutor)}
                         </div>
                     ))}
                 </div>
