@@ -79,7 +79,8 @@ export default function StudentHome({user}) {
                 return res.json()
             })
             .then(data => {
-                setFinished(true);
+                setFinished(false);
+                setDidReq(false);
                 setActualTutor(JSON.stringify(data));
             })
         .catch(e => {
