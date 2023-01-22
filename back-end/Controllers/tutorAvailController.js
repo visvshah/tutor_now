@@ -103,7 +103,11 @@ export const requestTutor = asyncHandler(async (req, res) => {
     tutor[0].tutorAvail = false;
     tutor[0].courseToTutor = courseName;
     let tutorEmail = tutor[0].email;
+    
+    console.log(tutor[0].studentId)
     tutor[0].studentId = studentId;
+    console.log(tutor[0].studentId)
+
 
     console.log(tutorEmail)
    // await tutor.save()
