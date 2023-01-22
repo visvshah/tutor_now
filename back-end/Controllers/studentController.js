@@ -7,10 +7,10 @@ import express from "express";
 export const registerStudent = asyncHandler(async (req, res) => {
     const { fName, lName, email, age, password, number, venmo, school, classYear} = await req.body;
         
-        if(!fName.length > 0 || !lName.length > 0 ||!email.length > 0 || !password.length > 0 || !age.length > 0) {
-            res.status(400)
-            throw new Error('Please add all fields')
-        }
+        // if(!fName.length > 0 || !lName.length > 0 ||!email.length > 0 || !password.length > 0 || !age.length > 0) {
+        //     res.status(400)
+        //     throw new Error('Please add all fields')
+        // }
         
         // Hash password
         const hashedPassword = await bcrypt.hash(password, 12)
@@ -93,8 +93,9 @@ export const getStudent = asyncHandler(async (req, res) => {
         venmo: student.venmo,
         school: student.school,
         classYear: student.classYear,
-        type: 1,}))
+        type: 1}))
     .catch(err => res.status(400).json('Error: ' + err));
+
 })
 
 export const createSession = asyncHandler(async (req, res) => {

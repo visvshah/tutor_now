@@ -96,7 +96,7 @@ export default function StudentAuth() {
         <div className="authPage">
             <h1 className="header">Student</h1>
             <button onClick={() => exitButton()} className='exitButton'>Exit</button>
-            <form autoComplete="off" validate="true" className="form" onSubmit={handleSubmit}>
+            <form autoComplete="off" validate="true" className="form">
                 <div className="projectSlider" style={{ transform: `translateX(-${currentPage * 100}vw)` }}>
                     <div className="projectHolder">
                         <h1 className="header" >{logIn ? "Log In" : "Sign Up"}</h1>
@@ -114,8 +114,9 @@ export default function StudentAuth() {
                                 <input placeholder="Your last name" id="lName" name="lName" type="lName" onChange={(e) => setStudentData({ ...studentData, lName: e.target.value })} />
                                 <input placeholder="Your email" id="email" name="email" type="email" onChange={(e) => setStudentData({ ...studentData, email: e.target.value })} />
                                 <input placeholder="Enter Password" id="password" name="password" type="password" onChange={(e) => setStudentData({ ...studentData, password: e.target.value })} />
-                                <button onClick={() => moveRight()} className='submitButton'>Next</button>
-                                
+
+                                <div onClick={() => moveRight()} className='rightArrow'>Next</div>
+
                             </>
                         )}
                         <button className="changeMode" onClick={changeMode}>{!logIn ? "Log In Instead" : "Sign Up instead"}</button>
@@ -124,8 +125,9 @@ export default function StudentAuth() {
                         <h1 className="header">Tell us more about yourself</h1>
                         <input placeholder="What school do you go to?" id="school" name="school" type="school" onChange={(e) => setStudentData({ ...studentData, school: e.target.value })} />
                         <input placeholder="What is your class standing?" id="classYear" name="classYear" type="classYear" onChange={(e) => setStudentData({ ...studentData, classYear: e.target.value })} />
-                        <button onClick={() => moveRight()} className='submitButton'>Next</button>
-                       
+
+                        <div onClick={() => moveRight()} className='rightArrow'>Next</div>
+                            
 
                     </div>
                     <div className="projectHolder">
@@ -137,7 +139,7 @@ export default function StudentAuth() {
                     </div>
                 </div>
                 {(currentPage > 0) && (
-                    <button onClick={() => moveLeft()} className='leftArrow'>Back</button>
+                    <div onClick={() => moveLeft()} className='leftArrow'>Back</div>
                 )}
             </form>
         </div>
