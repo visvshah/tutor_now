@@ -1,3 +1,6 @@
+.logInMainHeader{
+    margin-top: 200px;
+}
 .header{
     font-size: 40px;
     position: relative;
@@ -9,7 +12,6 @@
     width: 100vw;
     height: 90vh;
     flex-direction: column;
-    padding-top: 50px;
 }
 input{
     margin-bottom: 10px;
@@ -20,6 +22,19 @@ input{
     font-size: 13px;
     display: flex;
     transition: all 1s ease;
+}
+.aboutInput{
+    width: 600px;
+	height: 120px;
+    border-radius: 0;
+    border-style: none;
+    border-radius: 10px;
+	border: 3px solid #cccccc;
+	padding: 5px;
+    font-size: 13px;
+    display: flex;
+    transition: all 1s ease;
+    margin-bottom: 20px;
 }
 .form{
     display: flex;
@@ -95,24 +110,7 @@ button:hover{
     font-weight: 700;
     transition: all 1s ease;
 }
-.projects{
-    background-color: mainColor;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    overflow: hidden;
-}
-.projectHeader{
-    color: white;
-    font-weight: 700;
-    font-size: 70px;
-    position: absolute;
-    top: 45%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+
 .leftArrow{
     font-size: 20px;
     color: white;
@@ -149,12 +147,47 @@ button:hover{
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+
     overflow: hidden;
 }
 .tutorButton{
-
+    cursor: pointer;
+    /*margin-top: 20px;*/
+    position: relative;
+    margin-bottom: 10px;
+    color: white;
+    background-color: black;
+    /*width: 300px;*/
+    width: 323px;
+    height: 50px;
+    border: none;
+    border-radius: 10px;
+    font-size: 20px;
+    padding: 10px 10px;
 }
 .studentButton{
-    
+    cursor: pointer;
+    /*margin-top: 20px;*/
+    position: relative;
+    margin-bottom: 10px;
+    color: white;
+    background-color: black;
+    /*width: 300px;*/
+    width: 323px;
+    height: 50px;
+    border: none;
+    border-radius: 10px;
+    font-size: 20px;
+    padding: 10px 10px;
+}
+.exitButton {
+    font-size: 20px;
+    color: white;
+    background-color: black;
+    position: absolute;
+    left: 30px;
+    top: 100px;
+    cursor: pointer;
+    border-radius: 10px;
+    padding: .5%;
 }

@@ -5,7 +5,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import express from "express";
 export const registerStudent = asyncHandler(async (req, res) => {
-    const { fName, lName, email, age, password} = await req.body;
+    const { fName, lName, email, age, password, number, venmo, school, classYear} = await req.body;
         
         if(!fName.length > 0 || !lName.length > 0 ||!email.length > 0 || !password.length > 0 || !age.length > 0) {
             res.status(400)
@@ -34,7 +34,7 @@ export const registerStudent = asyncHandler(async (req, res) => {
         const studentToken = jwt.sign({fName, lName, email, id: student._id}, "profile", {expiresIn: "1h"});
         if(student) {
             res.status(201).json({
-                _id: student.id,
+                _id: student._id,
                 fName: student.fName,
                 lName: student.lName,
                 email: student.email,
@@ -59,7 +59,7 @@ export const loginStudent = asyncHandler(async (req, res) => {
     if(student && (await bcrypt.compare(password, student.password))) {
         const studentToken = jwt.sign({fName:student.fName, lName:student.lName, email:student.email, _id: student._id}, "profile", {expiresIn: "1h"});
         res.json({
-            _id: student.id,
+            _id: student._id,
                 fName: student.fName,
                 lName: student.lName,
                 email: student.email,
@@ -68,6 +68,7 @@ export const loginStudent = asyncHandler(async (req, res) => {
                 school: student.school,
                 classYear: student.classYear,
                 token: studentToken,
+                type: 1,
         })
     } else {
         res.status(400);
@@ -75,10 +76,16 @@ export const loginStudent = asyncHandler(async (req, res) => {
     }
 })
 
+//get all students
+export const getStudents = asyncHandler(async (req, res) => {
+    const students = await studentModel.find({});
+    res.json(students);
+})
+
 export const getStudent = asyncHandler(async (req, res) => {
     //sends back res.json with all student info. (argument is student id)
     studentModel.findById(req.params.id)
-    .then(student => res.json({_id: student.id,
+    .then(student => res.json({_id: student._id,
         fName: student.fName,
         lName: student.lName,
         email: student.email,
@@ -86,7 +93,7 @@ export const getStudent = asyncHandler(async (req, res) => {
         venmo: student.venmo,
         school: student.school,
         classYear: student.classYear,
-        token: studentToken,}))
+        type: 1,}))
     .catch(err => res.status(400).json('Error: ' + err));
 })
 

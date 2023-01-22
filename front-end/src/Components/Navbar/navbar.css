@@ -48,17 +48,16 @@
     background-color: #272727;
 }
 .signout{
-    background-color: black;
+    background-color: #272727;
     border: none;
     color: white;
-    padding: 100% 30px;
+    padding: 10% 30px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
     border-radius: 20px;
     transition: all 1s ease;
-    margin-right: 10px;
     
 }
 .signout:hover{

@@ -3,8 +3,8 @@ import "./studentHome.css"
 export default function StudentHome({user}) {
     const [didReq, setDidReq] = useState(false);
     const [request, changeRequest] = useState({
-        studentId : user._id,
-        class: "",
+        studentId: user._id,
+        courseName: "",
     })
     const [booking, changeBooking] = useState({
         studentId : user._id,
@@ -16,12 +16,20 @@ export default function StudentHome({user}) {
     const [actualTutor, setActualTutor] = useState();
     const handleSubmit = (event) =>{
         event.preventDefault();
-        fetch("http://localhost:5001/api/tutorAvails/fetch", { method: "PATCH", body: JSON.stringify(request), mode: 'cors', headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},contentType: "application/json"})
+        console.log(request)
+        changeRequest({...request, studentId: user._id})
+        changeRequest({...request, courseName: request.courseName})
+
+
+        fetch("http://localhost:5001/api/tutorsavails/fetch", { method: "PATCH", body: JSON.stringify(request), mode: 'cors', headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},contentType: "application/json"})
             .then(res => {
                 return res.json()
+
             })
             .then(data => {
-                JSON.stringify(data).forEach(function(tutor) {
+                addTutor([])
+                console.log(data)
+                Object.values(data).forEach(function(tutor) {
                     addTutor(tutors.concat(tutor));
                 });
                 setDidReq(true);
@@ -30,10 +38,34 @@ export default function StudentHome({user}) {
             console.log(e)
         })
     }
-    const handleRequest = (tutorId) =>{
-        changeBooking({...booking, tutorId: tutorId})
-        changeBooking({...booking, courseName: request.class})
-        fetch("http://localhost:5001/api/tutorAvails/request", { method: "PATCH", body: JSON.stringify(booking), mode: 'cors', headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},contentType: "application/json"})
+
+    const handleRequest = (tutorId, actualId, num) =>{
+        console.log(tutorId)
+        console.log(request.courseName)
+        //changeBooking(prev => ({...prev, studentId: booking.studentId, courseName: request.courseName, tutorId: tutorId}))
+        changeBooking({...booking, studentId: booking.studentId})
+        changeBooking({...booking, courseName: request.courseName})
+
+        console.log("booking: ")
+        console.log(booking)
+
+
+        fetch("http://localhost:5001/api/tutorsavails/request", { method: "PATCH", body: JSON.stringify({studentId: booking.studentId, courseName: request.courseName, tutorId: tutorId}), mode: 'cors', headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},contentType: "application/json"})
+            .then(res => {
+                return res.json()
+            })
+            .then(data => {
+                setFinished(true);
+                setActualTutor(tutors[num]);
+                console.log(actualTutor);
+            })
+        .catch(e => {
+            console.log(e)
+        })
+    
+    }
+    const endBooking = (actualId) => {
+        fetch("http://localhost:5001/api/tutorsavails/" + actualId, { method: "DELETE", mode: 'cors', headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},contentType: "application/json"})
             .then(res => {
                 return res.json()
             })
@@ -47,43 +79,69 @@ export default function StudentHome({user}) {
     }
   return (
     <div className="studentHome">
-        {!finished && (
-            <>
                 <div className={'leftHome ' + (didReq && 'active')}>
-                    {(tutors.length == 0) && (
+                    {!finished && (
                         <>
-                            No Available Tutors!
+                            {(tutors.length == 0) && (
+                                <>
+                                    No Available Tutors!
+                                </>
+                            )}
+                            {tutors.map((tutor, num) =>(
+                                <div className = "tutorInfo" key = {num}>
+                                    <div className="topHeader">
+                                        <h1>{tutor.fName + " " + tutor.lName}</h1>
+                                    </div>
+                                    <div className="bottomInformation">
+                                        <div className="lowerInformation">
+                                            <p className="informationP">{"Rating: " + tutor.rating}</p>
+                                            <p className="informationP">{"GPA: " + tutor.gpa}</p>
+                                            <p className="informationP">{"Class: " + tutor.classYear}</p>
+                                        </div>
+                                        <button className = "requestTutorButton" type="submit" onClick = {()=> handleRequest(tutor.tutorId, tutor._id, num)}>Request</button>
+                                    </div>
+                                    
+                                </div>
+                            ))}
                         </>
                     )}
-                    {tutors.map((tutor, num) =>(
-                        <div className = "tutorInfo" key = {num}>
-                            <h1>{tutor.fName + " " + tutor.lName}</h1>
-                            <h1>{"Rating: " + tutor.rating}</h1>
-                            <button className = "submitButton" type="submit" onClick = {handleRequest(tutor._id)}>Request</button>
-                        </div>
-                    ))}
+
                 </div>
                 <div className="rightHome">
-                    <h1 className ="heading">Tutor Now: $10.22/hour</h1>
-                    <form autoComplete = "off" validate = "true" className = "form" onSubmit = {handleSubmit}>
-                        <input placeholder = "What class do you need help with?" id = "class" name = "class" type ="class" onChange = {(e) => changeRequest({...request, class: e.target.value})}/> 
-                        <button className = "submitButton" type="submit" onClick = {handleSubmit}>Submit</button>
-                    </form>
+                    {!finished && (
+                        <>
+                            <h1 className ="heading">Tutor Now: $10.22/hour</h1>
+                            <form autoComplete = "off" validate = "true" className = "form" onSubmit = {handleSubmit}>
+                                <input placeholder = "What class do you need help with?" id = "class" name = "class" type ="class" onChange = {(e) => changeRequest({...request, courseName: e.target.value})}/> 
+                                <button className = "submitButton" type="submit" onClick = {handleSubmit}>Submit</button>
+                            </form>
+                        </>
+                    )}
+                    {finished && (
+                        <div className="finishPage">
+                            <h1 className='tutorEndHeader'>Congrats! Here is your tutor:</h1>
+                            <div className="finishPage">
+                                    
+                                    <div className="bigNameHeader">
+                                        <h1>{actualTutor.fName + " " + actualTutor.lName}</h1>
+                                    </div>
+                                    <div className="bottomInformation">
+                                        <div className="lowerInformation">
+                                            <p className="informationPa">{"School :" + actualTutor.school}</p>
+                                            <p className="informationPa">{"Phone :" + actualTutor.number}</p>
+                                            <p className="informationPa">{"Email :" + actualTutor.email}</p>
+                                            <p className="informationPa">{"Venmo :" + actualTutor.venmo}</p>
+                                            <p className="informationPa">{"About :" + actualTutor.about}</p>
+                                        </div>
+                                    </div>
+                                    <button className = "requestTutorButton" type="submit" onClick = {()=> endBooking(actualTutor._id)}>End Session</button>
+                            
+                            </div>
+                        </div>
+                    )}
                 </div>
-            </>
-        )}
-        {finished && (
-            <div className="finishPage">
-                <h1>Congrats! Here is your tutor:</h1>
-                <div className="header">
-                    <h2>{actualTutor.fName + " " + actualTutor.lName}</h2>
-                    <h2>{"School :" + actualTutor.school}</h2>
-                    <h2>{"Phone :" + actualTutor.phone}</h2>
-                    <h2>{"Email :" + actualTutor.email}</h2>
-                    <h2>{"Venmo :" + actualTutor.venmo}</h2>
-                </div>
-            </div>
-        )}
+
+        
     </div>
   )
 }
