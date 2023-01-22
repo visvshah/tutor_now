@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 export default function StudentAuth() {
     const [currentPage, changePage] = useState(0);
     const [isError, changeIsError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
     const moveLeft = () => {
         if (currentPage > 0) {
             changePage(currentPage - 1);
@@ -35,31 +36,38 @@ export default function StudentAuth() {
 
     }
     const sendLogIn = (e) => {
-        fetch("http://localhost:5001/api/students/login", { method: "POST", body: JSON.stringify(studentData), mode: 'cors', headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},contentType: "application/json"})
+        fetch("http://localhost:5001/api/students/login", { method: "POST", body: JSON.stringify(studentData), mode: 'cors', headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' }, contentType: "application/json" })
             .then(res => {
                 return res.json()
             })
             .then(data => {
+                changeIsError(false)
                 localStorage.setItem("profile", JSON.stringify(data));
                 navigate('/');
             })
-        .catch(e => {
-            console.log(e)
-        })
+            .catch(e => {
+                console.log(e)
+                console.log("Error Message Here")
+                setErrorMessage("Error: Invalid Credentials")
+                changeIsError(true)
+            })
     }
 
     const sendSignUp = (e) => {
-        fetch("http://localhost:5001/api/students/signup", { method: "POST", body: JSON.stringify(studentData), mode: 'cors', headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},contentType: "application/json"})
+        fetch("http://localhost:5001/api/students/signup", { method: "POST", body: JSON.stringify(studentData), mode: 'cors', headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' }, contentType: "application/json" })
             .then(res => {
                 return res.json();
             })
             .then(data => {
+                changeIsError(false)
                 localStorage.setItem("profile", JSON.stringify(data));
                 navigate('/');
             })
-        .catch(e => {
-            console.log(e)
-        })
+            .catch(e => {
+                console.log(e)
+                setErrorMessage("Error: Invalid Credentials")
+                changeIsError(true)
+            })
     }
 
     const changeMode = (event) => {
@@ -97,6 +105,7 @@ export default function StudentAuth() {
                                 <input placeholder="Your email" id="email" name="email" type="email" onChange={(e) => setStudentData({ ...studentData, email: e.target.value })} />
                                 <input placeholder="Enter Password" id="password" name="password" type="password" onChange={(e) => setStudentData({ ...studentData, password: e.target.value })} />
                                 <button className="submitButton" type="submit" onClick={handleSubmit}>{/*logIn ? "Next" :*/ "Submit"}</button>
+                                {isError && <p className="error">{errorMessage}</p>}
                             </>
                         )}
                         {!logIn && (
@@ -106,6 +115,7 @@ export default function StudentAuth() {
                                 <input placeholder="Your email" id="email" name="email" type="email" onChange={(e) => setStudentData({ ...studentData, email: e.target.value })} />
                                 <input placeholder="Enter Password" id="password" name="password" type="password" onChange={(e) => setStudentData({ ...studentData, password: e.target.value })} />
                                 <button onClick={() => moveRight()} className='submitButton'>Next</button>
+                                
                             </>
                         )}
                         <button className="changeMode" onClick={changeMode}>{!logIn ? "Log In Instead" : "Sign Up instead"}</button>
@@ -115,13 +125,15 @@ export default function StudentAuth() {
                         <input placeholder="What school do you go to?" id="school" name="school" type="school" onChange={(e) => setStudentData({ ...studentData, school: e.target.value })} />
                         <input placeholder="What is your class standing?" id="classYear" name="classYear" type="classYear" onChange={(e) => setStudentData({ ...studentData, classYear: e.target.value })} />
                         <button onClick={() => moveRight()} className='submitButton'>Next</button>
-                            
+                       
+
                     </div>
                     <div className="projectHolder">
                         <h1 className="header">Tell us even more about yourself</h1>
                         <input placeholder="What is your phone number?" id="number" name="number" onChange={(e) => setStudentData({ ...studentData, number: e.target.value })} />
                         <input placeholder="What is your venmo?" id="venmo" name="venmo" type="venmo" onChange={(e) => setStudentData({ ...studentData, venmo: e.target.value })} />
                         <button className="submitButton" type="submit" onClick={handleSubmit}>{/*logIn ? "Next" :*/ "Submit"}</button>
+                        {isError && <p className="error">{errorMessage}</p>}
                     </div>
                 </div>
                 {(currentPage > 0) && (
