@@ -1,6 +1,6 @@
 # Tutor Now
 
-This project contains both a frontend and backend, both of which can be started with npm start.
+This project contains both a frontend and backend, both of which can be started with npm start. Instructions to utilize our Web App are below. The project aims to provide a simple yet intuitive solution for tutors and students to get connected. 
 
 ## Getting Started
 
@@ -12,7 +12,7 @@ This project contains both a frontend and backend, both of which can be started 
 
 
 ## Project Structure
-The project is structured with the frontend in the client directory and the backend in the server directory. The root directory contains the common dependencies and scripts for starting the development servers.
+The project is structured with the frontend in the client directory and the backend in the server directory. The root directory contains the common dependencies and scripts for starting the development servers. The sever side must exist before the client side is created. 
 
 ## Deployment
 For deployment, the backend can be deployed on any Node.js hosting service such as Heroku or AWS Elastic Beanstalk. The frontend can be deployed on any static file hosting service such as GitHub Pages or AWS S3.
@@ -22,19 +22,13 @@ React - Frontend JavaScript library
 Node.js - Backend JavaScript runtime
 Express - Backend web framework for Node.js
 
-## Contributing
-Please read CONTRIBUTING.md for details on our code of conduct, and the process for submitting pull requests to us.
-
 ## Versioning
 We use SemVer for versioning. For the versions available, see the tags on this repository.
 
 ## Authors
-Your Name - Initial work - YourUsername
+Soham Jog - sohamjog
+Visv Shah - visvshah
+Dheeraj Namargomala - dheerajkattar
+Amogh Jani - ajani2
+
 See also the list of contributors who participated in this project.
-
-## License
-This project is licensed under the MIT License - see the LICENSE.md file for details
-
-## Acknowledgments
-Hat tip to anyone whose code was used
-Inspiration
