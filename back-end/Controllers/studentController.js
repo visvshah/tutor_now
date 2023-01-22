@@ -84,29 +84,19 @@ export const getStudents = asyncHandler(async (req, res) => {
 
 export const getStudent = asyncHandler(async (req, res) => {
     //sends back res.json with all student info. (argument is student id)
-    const student = studentModel.findById(req.params.id)
-    if(student) {
-        res.json({_id: student._id,
-            fName: student.fName,
-            lName: student.lName,
-            email: student.email,
-            number: student.number,
-            venmo: student.venmo,
-            school: student.school,
-            classYear: student.classYear,
-            type: 2,})
-    }
-//     .then(student => res.json({_id: student._id,
-//         fName: student.fName,
-//         lName: student.lName,
-//         email: student.email,
-//         number: student.number,
-//         venmo: student.venmo,
-//         school: student.school,
-//         classYear: student.classYear,
-//         type: 1,}))
-//     .catch(err => res.status(400).json('Error: ' + err));
-// 
+    student = studentModel.findById(req.params.id)
+    
+    .then(student => res.json({_id: student._id,
+        fName: student.fName,
+        lName: student.lName,
+        email: student.email,
+        number: student.number,
+        venmo: student.venmo,
+        school: student.school,
+        classYear: student.classYear,
+        type: 1,}))
+    .catch(err => res.status(400).json('Error: ' + err));
+
 })
 
 export const createSession = asyncHandler(async (req, res) => {
