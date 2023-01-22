@@ -110,7 +110,7 @@ export default function StudentHome({user}) {
                 <div className="rightHome">
                     {!finished && (
                         <>
-                            <h1 className ="heading">Tutor Now: $10.22/hour</h1>
+                            <h1 className ="heading">Tutor Now: $10.00/hour</h1>
                             <form autoComplete = "off" validate = "true" className = "form" onSubmit = {handleSubmit}>
                                 <input placeholder = "What class do you need help with?" id = "class" name = "class" type ="class" onChange = {(e) => changeRequest({...request, courseName: e.target.value})}/> 
                                 <button className = "submitButton" type="submit" onClick = {handleSubmit}>Submit</button>

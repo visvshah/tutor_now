@@ -8,55 +8,68 @@ export default function TutorHome({user}) {
     const [request, changeRequest] = useState({
         minutes: 0,
         tutorId : user._id,
-        
     })
 
     const [finished, setFinished] = useState(false);
     const [student, setStudent] = useState();
     const handleSubmit = (event) =>{
         event.preventDefault();
-        console.log("here")
-
         changeRequest({...request, tutorId: user._id})
+        console.log("1");
+        user.isAvailable = true;
+        localStorage.setItem("profile", JSON.stringify(user));
+        console.log("2");
         console.log(request)
         fetch("http://localhost:5001/api/tutorsavails/create", { method: "POST", body: JSON.stringify(request), mode: 'cors', headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},contentType: "application/json"})
             .then(res => {
+                setIsAvailable(true);
                 return res.json()
             })
-            .then(data => {
-                setIsAvailable(true)
-            })
         .catch(e => {
-            console.log(e)
+            console.log(e);
         })
+        console.log(isAvailable);
     }
     const handleRequest = () =>{
         fetch("http://localhost:5001/api/tutors/" + user._id, { method: "GET", mode: 'cors', headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},contentType: "application/json"})
-            .then(res => {
-                return res.json()
-            })
-            .then(data => {
-                if(data.studentId != "") {
-                    getStudentDetails(data.studentId)
-                }
-            })
+        .then(res => {
+            return res.json()
+        })
+        .then(data => {
+            if(data.studentId) {
+                getStudentDetails(data.studentId);
+                localStorage.setItem("profile", data);
+                console.log("There is a tudent id");
+            }
+            else {
+                console.log("No student id");
+            }
+        })
+        
+            
         .catch(e => {
             console.log(e)
         })
     }
     const getStudentDetails = (studentId) =>{
+        console.log(studentId)
         fetch("http://localhost:5001/api/students/" + studentId, { method: "GET", mode: 'cors', headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},contentType: "application/json"})
             .then(res => {
+                console.log("in first then");
                 return res.json()
             })
             .then(data => {
-                setStudent(student);
+                console.log("in second then");
+                console.log(data);
+                //setStudent(JSON.parse(data));
                 setFinished(true);
             })
         .catch(e => {
             console.log(e)
         })
+        
     }
+    
   return (
     <div className="studentHome">
                 <div className={'leftHome ' + (isAvailable && 'active')}>
@@ -76,7 +89,7 @@ export default function TutorHome({user}) {
                             {isAvailable && (
                                 <>
                                     <h1 className='heading'>Sucess! We will email you when you have a match!</h1>
-                                    <button onClick={ handleSubmit} className="tutorButton">Reload?</button>
+                                    <button onClick={handleRequest} className="tutorButton">Reload?</button>
                                 </>
                             )}
                             </>

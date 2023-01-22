@@ -12,10 +12,10 @@ export const createTutorAvail = asyncHandler(async (req, res) => {
     //Creates new tutor avail object, tutorId and course should be in the req.body
     const {tutorId} = await req.body;
 
-
     const tutor = await tutorModel.findOne({_id: tutorId});
+    console.log(tutor);
     console.log("Tutor found!" + tutor.email)
-
+    tutor.setAvailability = true;
     let courses = tutor.classes;
 
 
@@ -43,7 +43,9 @@ export const createTutorAvail = asyncHandler(async (req, res) => {
         about: tutor.about,
         rating: tutor.rating,
         numRatings: tutor.numRatings,
-    }).then(()=>{console.log("done")})
+    }).then(()=>{
+        res.json(tutorAvail)
+    })
 
 
 })
@@ -87,6 +89,7 @@ export const requestTutor = asyncHandler(async (req, res) => {
     tutor[0].tutorAvail = false;
     tutor[0].courseToTutor = courseName;
     let tutorEmail = tutor[0].email;
+    tutor[0].studentId = studentId;
 
     console.log(tutorEmail)
    // await tutor.save()
@@ -107,7 +110,7 @@ export const deleteAvailTutor = asyncHandler(async (req, res) => {
     const tutorAvail = await tutorAvailModel.findById(req.params.id)
     const tutorId = tutorAvail.tutorId;
     const tutor = await tutorModel.findOne({tutorId})
-    tutor.tutorAvail = true;
+    tutor.setAvailability = false;
     tutor.courseToTutor = "";
     await tutor.save()
 

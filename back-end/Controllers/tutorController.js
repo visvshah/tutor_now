@@ -53,6 +53,7 @@ export const registerTutor = asyncHandler(async (req, res) => {
                 gpa: tutor.gpa,
                 about: tutor.about,
                 token: tutorToken,
+                setAvailability: false,
                 type: 2,
             })
             
@@ -81,7 +82,9 @@ export const loginTutor = asyncHandler(async (req, res) => {
             gpa: tutor.gpa,
             about: tutor.about,
             token: tutorToken,
+            setAvailability: false,
             type: 2,
+            studentId: tutor.studentId
         })
     } else {
         res.status(400);
@@ -99,21 +102,37 @@ export const getTutors = asyncHandler(async (req, res) => {
 export const getTutor = asyncHandler(async (req, res) => {
      //sends back res.json with all tutor info. (argument is tutor id)
     
-     tutorModel.findById(req.params.id)
-    .then(tutor => res.json({_id: tutor.id,
-        fName: tutor.fName,
-        lName: tutor.lName,
-        email: tutor.email,
-        number: tutor.number,
-        venmo: tutor.venmo,
-        school: tutor.school,
-        classYear: tutor.classYear,
-        classes: tutor.classes,
-        gpa: tutor.gpa,
-        about: tutor.about,
-        type: 2
-    }))
-    .catch(err => res.status(400).json('Error: ' + err));
+    const tutor = tutorModel.findById(req.params.id)
+    if(tutor) {
+        res.json({_id: tutor.id,
+            fName: tutor.fName,
+            lName: tutor.lName,
+            email: tutor.email,
+            number: tutor.number,
+            venmo: tutor.venmo,
+            school: tutor.school,
+            classYear: tutor.classYear,
+            classes: tutor.classes,
+            gpa: tutor.gpa,
+            about: tutor.about,
+            type: 2,
+            studentId: tutor.studentId
+        })
+    }
+    // .then(tutor => res.json({_id: tutor.id,
+    //     fName: tutor.fName,
+    //     lName: tutor.lName,
+    //     email: tutor.email,
+    //     number: tutor.number,
+    //     venmo: tutor.venmo,
+    //     school: tutor.school,
+    //     classYear: tutor.classYear,
+    //     classes: tutor.classes,
+    //     gpa: tutor.gpa,
+    //     about: tutor.about,
+    //     type: 2
+    // }))
+    // .catch(err => res.status(400).json('Error: ' + err));
      
 })
 export const createSession = asyncHandler(async (req, res) => {

@@ -65,7 +65,12 @@ export const tutorSchema = mongoose.Schema({
         type: Number,
         default: 0,
     },
+    setAvailability: {
+        type: Boolean,
+        default: false,
+    }
 },
+
 {
     timestamps: true
 })
