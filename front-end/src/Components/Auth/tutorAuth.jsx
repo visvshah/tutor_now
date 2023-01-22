@@ -61,7 +61,8 @@ export default function TutorAuth() {
         })
     }
 
-    const changeMode = () => {
+    const changeMode = (e) => {
+        e.preventDefault()
         changeLogIn(!logIn);
     }
 

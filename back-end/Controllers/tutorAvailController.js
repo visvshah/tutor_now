@@ -32,17 +32,6 @@ export const createTutorAvail = asyncHandler(async (req, res) => {
     const tutorAvail = await tutorAvailModel.create({
         tutorId,
         courses,
-        fName: tutor.fName,
-        lName: tutor.lName,
-        email: tutor.email,
-        number: tutor.number,
-        venmo: tutor.venmo,
-        school: tutor.school,
-        classYear: tutor.classYear,
-        gpa: tutor.gpa,
-        about: tutor.about,
-        rating: tutor.rating,
-        numRatings: tutor.numRatings,
     }).then(()=>{console.log("done")})
 
 
@@ -78,6 +67,7 @@ export const requestTutor = asyncHandler(async (req, res) => {
     const tutor = await tutorModel.findOne({tutorId})
     tutor.tutorAvail = false;
     tutor.courseToTutor = courseName;
+    tutor.studentId = student._id;
     let tutorEmail = tutor.email;
     await tutor.save()
 
@@ -98,6 +88,7 @@ export const deleteAvailTutor = asyncHandler(async (req, res) => {
     const tutor = await tutorModel.findOne({tutorId})
     tutor.tutorAvail = true;
     tutor.courseToTutor = "";
+    tutor.studentId = "";
     await tutor.save()
 
 

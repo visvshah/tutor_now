@@ -8,7 +8,6 @@ export default function StudentHome({user}) {
     })
     const [finished, setFinished] = useState(false);
     const [student, setStudent] = useState();
-    const [actualTutor, setActualTutor] = useState();
     const handleSubmit = (event) =>{
         event.preventDefault();
         changeRequest({...request, tutorId: user._id})
@@ -23,14 +22,28 @@ export default function StudentHome({user}) {
             console.log(e)
         })
     }
-    const handleRequest = (tutorId) =>{
+    const handleRequest = () =>{
         fetch("http://localhost:5001/api/tutors/" + user._id, { method: "GET", mode: 'cors', headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},contentType: "application/json"})
             .then(res => {
                 return res.json()
             })
             .then(data => {
+                if(data.studentId != "") {
+                    getStudentDetails(data.studentId)
+                }
+            })
+        .catch(e => {
+            console.log(e)
+        })
+    }
+    const getStudentDetails = (studentId) =>{
+        fetch("http://localhost:5001/api/students/" + studentId, { method: "GET", mode: 'cors', headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},contentType: "application/json"})
+            .then(res => {
+                return res.json()
+            })
+            .then(data => {
+                setStudent(student);
                 setFinished(true);
-                setActualTutor(JSON.stringify(data));
             })
         .catch(e => {
             console.log(e)
@@ -46,6 +59,7 @@ export default function StudentHome({user}) {
                             <>
                             {!isAvailable && (
                                 <>
+                                    <h1 className='heading'>Start Tutoring Now!</h1>
                                     <input placeholder="How many minutes are you available for from now?" id="minutes" name="minutes" type="minutes" onChange={(e) => changeRequest({ ...request, minutes: e.target.value })} />
                                     <button onClick={() => handleSubmit} className="tutorButton">Set Availability Now!</button>
                                 </>

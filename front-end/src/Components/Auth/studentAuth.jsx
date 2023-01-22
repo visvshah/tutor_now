@@ -61,7 +61,8 @@ export default function StudentAuth() {
         })
     }
 
-    const changeMode = () => {
+    const changeMode = (e) => {
+        e.preventDefault();
         changeLogIn(!logIn);
     }
 
