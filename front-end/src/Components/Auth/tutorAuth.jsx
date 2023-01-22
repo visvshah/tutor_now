@@ -40,6 +40,7 @@ export default function TutorAuth() {
             })
             .then(data => {
                 localStorage.setItem("profile", JSON.stringify(data));
+                navigate('/');
             })
         .catch(e => {
             console.log(e)

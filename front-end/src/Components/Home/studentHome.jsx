@@ -38,7 +38,7 @@ export default function StudentHome({user}) {
             console.log(e)
         })
     }
-    const handleRequest = (tutorId) =>{
+    const handleRequest = (tutorId, actualId) =>{
         console.log(tutorId)
         console.log(request.courseName)
         //changeBooking(prev => ({...prev, studentId: booking.studentId, courseName: request.courseName, tutorId: tutorId}))
@@ -50,6 +50,21 @@ export default function StudentHome({user}) {
 
 
         fetch("http://localhost:5001/api/tutorsavails/request", { method: "PATCH", body: JSON.stringify({studentId: booking.studentId, courseName: request.courseName, tutorId: tutorId}), mode: 'cors', headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},contentType: "application/json"})
+            .then(res => {
+                return res.json()
+            })
+            .then(data => {
+                setFinished(true);
+                setActualTutor(JSON.stringify(data));
+            })
+        .catch(e => {
+            console.log(e)
+        })
+        //delete from tutorsavails through the
+        
+        
+
+        fetch("http://localhost:5001/api/tutorsavails/" + actualId, { method: "DELETE", mode: 'cors', headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},contentType: "application/json"})
             .then(res => {
                 return res.json()
             })
@@ -75,7 +90,7 @@ export default function StudentHome({user}) {
                         <div className = "tutorInfo" key = {num}>
                             <h1>{tutor.fName + " " + tutor.lName}</h1>
                             <h1>{"Rating: " + tutor.rating}</h1>
-                            <button className = "submitButton" type="submit" onClick = {()=> handleRequest(tutor.tutorId)}>Request</button>
+                            <button className = "submitButton" type="submit" onClick = {()=> handleRequest(tutor.tutorId, tutor._id)}>Request</button>
                             {console.log("*****")}
                             {console.log(tutor)}
                         </div>
