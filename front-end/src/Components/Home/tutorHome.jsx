@@ -11,7 +11,7 @@ export default function StudentHome({user}) {
     const handleSubmit = (event) =>{
         event.preventDefault();
         changeRequest({...request, tutorId: user._id})
-        fetch("http://localhost:5001/api/tutorsavails//create", { method: "POST", body: JSON.stringify(request), mode: 'cors', headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},contentType: "application/json"})
+        fetch("http://localhost:5001/api/tutorsavails/create", { method: "POST", body: JSON.stringify(request), mode: 'cors', headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},contentType: "application/json"})
             .then(res => {
                 return res.json()
             })
