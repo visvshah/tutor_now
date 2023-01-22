@@ -96,6 +96,10 @@ export const requestTutor = asyncHandler(async (req, res) => {
     const student = await studentModel.findOne({studentId})
     let fName = student.fName;
     let lName = student.lName;
+
+    await tutorModel.findOneAndUpdate({_id: tutorId}, {studentId: studentId});
+
+
     const tutor = await tutorModel.find({_id: tutorId})
     //debug
     console.log(tutor)

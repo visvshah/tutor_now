@@ -116,7 +116,8 @@ export const getTutor = asyncHandler(async (req, res) => {
         classes: tutor.classes,
         gpa: tutor.gpa,
         about: tutor.about,
-        type: 2
+        type: 2,
+        studentId: tutor.studentId
     }))
     .catch(err => res.status(400).json('Error: ' + err));
      
