@@ -20,14 +20,14 @@ export default function StudentHome({user}) {
         fetch("http://localhost:5001/api/tutorsavails/fetch", { method: "PATCH", body: JSON.stringify(request), mode: 'cors', headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},contentType: "application/json"})
             .then(res => {
                 return res.json()
-
             })
             .then(data => {
-                addTutor([])
-                console.log(data)
+                
+                addTutor([]);
                 Object.values(data).forEach(function(tutor) {
                     addTutor(tutors.concat(tutor));
                 });
+                console.log(tutors);
                 setDidReq(true);
             })
         .catch(e => {
@@ -64,9 +64,18 @@ export default function StudentHome({user}) {
                     )}
                     {tutors.map((tutor, num) =>(
                         <div className = "tutorInfo" key = {num}>
-                            <h1>{tutor.fName + " " + tutor.lName}</h1>
-                            <h1>{"Rating: " + tutor.rating}</h1>
-                            <button className = "submitButton" type="submit" onClick = {()=> handleRequest(tutor.tutorId)}>Request</button>
+                            <div className="topHeader">
+                                <h1>{tutor.fName + " " + tutor.lName}</h1>
+                            </div>
+                            <div className="bottomInformation">
+                                <div className="lowerInformation">
+                                    <p className="informationP">{"Rating: " + tutor.rating}</p>
+                                    <p className="informationP">{"GPA: " + tutor.gpa}</p>
+                                    <p className="informationP">{"Class: " + tutor.classYear}</p>
+                                </div>
+                                <button className = "requestTutorButton" type="submit" onClick = {()=> handleRequest(tutor.tutorId)}>Request</button>
+                            </div>
+                            
                         </div>
                     ))}
                 </div>
