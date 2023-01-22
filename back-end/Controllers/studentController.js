@@ -68,6 +68,7 @@ export const loginStudent = asyncHandler(async (req, res) => {
                 school: student.school,
                 classYear: student.classYear,
                 token: studentToken,
+                type: 1,
         })
     } else {
         res.status(400);
@@ -91,7 +92,8 @@ export const getStudent = asyncHandler(async (req, res) => {
         number: student.number,
         venmo: student.venmo,
         school: student.school,
-        classYear: student.classYear,}))
+        classYear: student.classYear,
+        type: 1,}))
     .catch(err => res.status(400).json('Error: ' + err));
 })
 

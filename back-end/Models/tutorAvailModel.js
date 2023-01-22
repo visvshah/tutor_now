@@ -6,11 +6,59 @@ export const tutorAvailSchema = mongoose.Schema({
         type: String,
         required: [true, 'Please have a tutorId']
     },
-    courses: {
-        //array of strings
+    fName: {
+        type: String,
+        required: [true, 'Please add a first name']
+    },
+    lName: {
+        type: String,
+        required: [true, 'Please add a last name']
+    },
+    email: {
+        type: String,
+        required: [true, 'Please add an email'],
+        unique: true
+    },
+    number: {
+        type: String,
+        required: [true, 'Please add an phone'],
+        unique: true
+    },
+    venmo: {
+        type: String,
+        required: [true, 'Please add an Venmo'],
+        unique: true
+    },
+    
+    school: {
+        type: String,
+        required: [true]
+    },
+    classYear: {
+        type: String,
+        required: [false]
+    },
+    courses : {
         type: [String],
-        required: [true, 'Please have a course']
-    }
+        required: [false]
+    },
+    gpa : {
+        type: Number,
+        required: [false]
+    },
+    about: {
+        type: String,
+        required: [false],
+    },
+    rating: {
+        type: Number,
+        default: 0.0,
+    },
+    ratingUsers: {
+        type: Number,
+        default: 0,
+    },
+
 },
 {
     timestamps: true

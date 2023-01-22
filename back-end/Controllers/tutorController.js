@@ -53,6 +53,7 @@ export const registerTutor = asyncHandler(async (req, res) => {
                 gpa: tutor.gpa,
                 about: tutor.about,
                 token: tutorToken,
+                type: 2,
             })
             
         } else {
@@ -107,7 +108,12 @@ export const getTutor = asyncHandler(async (req, res) => {
         number: tutor.number,
         venmo: tutor.venmo,
         school: tutor.school,
-        classYear: tutor.classYear,}))
+        classYear: tutor.classYear,
+        classes: tutor.classes,
+        gpa: tutor.gpa,
+        about: tutor.about,
+        type: 2
+    }))
     .catch(err => res.status(400).json('Error: ' + err));
      
 })
