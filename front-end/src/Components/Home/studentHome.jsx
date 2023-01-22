@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import "./studentHome.css"
 import "../chat.css"
-import {Chat} from "../Chat.js"
+import Chat from '../Chat.js'
 import io from "socket.io-client"
 
 
@@ -116,9 +116,10 @@ export default function StudentHome({user}) {
                     )}
                     {finished && (
                         <div className="finishPage">
-                            Hello world
-                            //insert chat 
                             <Chat 
+                            username={user.fName + " " + user.lName}
+                            room = {1}
+                            socket = {socket}
                             />
 
                         </div>
