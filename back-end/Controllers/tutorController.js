@@ -7,11 +7,13 @@ import express from "express";
 export const registerTutor = asyncHandler(async (req, res) => {
     const { fName, lName, email, age, password, number, venmo, school, classYear, classes,gpa, about} = await req.body;
         
-        if(!fName.length > 0 || !lName.length > 0 ||!email.length > 0 || !password.length > 0 || !age.length > 0) {
-            res.status(400)
-            throw new Error('Please add all fields')
-        }
+        // if(!fName.length > 0 || !lName.length > 0 ||!email.length > 0 || !password.length > 0 || !age.length > 0) {
+        //     res.status(400)
+        //     throw new Error('Please add all fields')
+        // }
         
+        const classesArray = classes.split(",");
+
         // Hash password
         const hashedPassword = await bcrypt.hash(password, 12)
         // Check if tutor exists
@@ -30,7 +32,7 @@ export const registerTutor = asyncHandler(async (req, res) => {
             password: hashedPassword,
             school,
             classYear,
-            classes,
+            classes: classesArray,
             gpa,
             about,
             
@@ -51,6 +53,7 @@ export const registerTutor = asyncHandler(async (req, res) => {
                 gpa: tutor.gpa,
                 about: tutor.about,
                 token: tutorToken,
+                type: 2,
             })
             
         } else {
@@ -66,8 +69,7 @@ export const loginTutor = asyncHandler(async (req, res) => {
     if(tutor && (await bcrypt.compare(password, tutor.password))) {
         const tutorToken = jwt.sign({fName:tutor.fName, lName:tutor.lName, email:tutor.email, _id: tutor._id}, "profile", {expiresIn: "1h"});
         res.json({
-            _id: tutor.id,
-            _id: tutor.id,
+            _id: tutor._id,
             fName: tutor.fName,
             lName: tutor.lName,
             email: tutor.email,
@@ -87,6 +89,13 @@ export const loginTutor = asyncHandler(async (req, res) => {
     }
 })
 
+export const getTutors = asyncHandler(async (req, res) => {
+    //sends back res.json with all tutor info.
+    tutorModel.find()
+    .then(tutors => res.json(tutors))
+    .catch(err => res.status(400).json('Error: ' + err));
+})
+
 export const getTutor = asyncHandler(async (req, res) => {
      //sends back res.json with all tutor info. (argument is tutor id)
     
@@ -99,7 +108,11 @@ export const getTutor = asyncHandler(async (req, res) => {
         venmo: tutor.venmo,
         school: tutor.school,
         classYear: tutor.classYear,
-        token: studentToken,}))
+        classes: tutor.classes,
+        gpa: tutor.gpa,
+        about: tutor.about,
+        type: 2
+    }))
     .catch(err => res.status(400).json('Error: ' + err));
      
 })
