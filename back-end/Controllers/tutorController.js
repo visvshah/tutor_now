@@ -103,8 +103,6 @@ export const getTutor = asyncHandler(async (req, res) => {
      //sends back res.json with all tutor info. (argument is tutor id)
     
       tutorModel.findById(req.params.id)
-  
-    
     .then(tutor => res.json({_id: tutor.id,
         fName: tutor.fName,
         lName: tutor.lName,
