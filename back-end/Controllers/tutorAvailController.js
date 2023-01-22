@@ -44,7 +44,21 @@ export const createTutorAvail = asyncHandler(async (req, res) => {
         rating: tutor.rating,
         numRatings: tutor.numRatings,
     }).then(()=>{
-        res.json(tutorAvail)
+        res.json({
+            tutorId,
+            courses,
+            fName: tutor.fName,
+            lName: tutor.lName,
+            email: tutor.email,
+            number: tutor.number,
+            venmo: tutor.venmo,
+            school: tutor.school,
+            classYear: tutor.classYear,
+            gpa: tutor.gpa,
+            about: tutor.about,
+            rating: tutor.rating,
+            numRatings: tutor.numRatings,
+        })
     })
 
 

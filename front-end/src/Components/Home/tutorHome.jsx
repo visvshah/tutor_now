@@ -15,10 +15,8 @@ export default function TutorHome({user}) {
     const handleSubmit = (event) =>{
         event.preventDefault();
         changeRequest({...request, tutorId: user._id})
-        console.log("1");
         user.isAvailable = true;
         localStorage.setItem("profile", JSON.stringify(user));
-        console.log("2");
         console.log(request)
         fetch("http://localhost:5001/api/tutorsavails/create", { method: "POST", body: JSON.stringify(request), mode: 'cors', headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},contentType: "application/json"})
             .then(res => {
@@ -28,7 +26,6 @@ export default function TutorHome({user}) {
         .catch(e => {
             console.log(e);
         })
-        console.log(isAvailable);
     }
     const handleRequest = () =>{
         fetch("http://localhost:5001/api/tutors/" + user._id, { method: "GET", mode: 'cors', headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},contentType: "application/json"})
@@ -36,17 +33,16 @@ export default function TutorHome({user}) {
             return res.json()
         })
         .then(data => {
+            console.log(data);
             if(data.studentId) {
                 getStudentDetails(data.studentId);
                 localStorage.setItem("profile", data);
-                console.log("There is a tudent id");
+                console.log("There is a student id");
             }
             else {
                 console.log("No student id");
             }
         })
-        
-            
         .catch(e => {
             console.log(e)
         })
@@ -61,7 +57,6 @@ export default function TutorHome({user}) {
             .then(data => {
                 console.log("in second then");
                 console.log(data);
-                //setStudent(JSON.parse(data));
                 setFinished(true);
             })
         .catch(e => {
