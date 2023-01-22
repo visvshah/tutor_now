@@ -1,16 +1,24 @@
 import React, {useState} from 'react'
 import "./studentHome.css"
-export default function StudentHome({user}) {
+import "./tutorHome.css"
+export default function TutorHome({user}) {
+
+    console.log(user.email)
     const [isAvailable, setIsAvailable] = useState(false);
     const [request, changeRequest] = useState({
         minutes: 0,
-        tutorId : "",
+        tutorId : user._id,
+        
     })
+
     const [finished, setFinished] = useState(false);
     const [student, setStudent] = useState();
     const handleSubmit = (event) =>{
         event.preventDefault();
+        console.log("here")
+
         changeRequest({...request, tutorId: user._id})
+        console.log(request)
         fetch("http://localhost:5001/api/tutorsavails/create", { method: "POST", body: JSON.stringify(request), mode: 'cors', headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},contentType: "application/json"})
             .then(res => {
                 return res.json()
@@ -61,13 +69,14 @@ export default function StudentHome({user}) {
                                 <>
                                     <h1 className='heading'>Start Tutoring Now!</h1>
                                     <input placeholder="How many minutes are you available for from now?" id="minutes" name="minutes" type="minutes" onChange={(e) => changeRequest({ ...request, minutes: e.target.value })} />
-                                    <button onClick={() => handleSubmit} className="tutorButton">Set Availability Now!</button>
+
+                                    <button onClick={handleSubmit} className="tutorButton">Set Availability Now!</button>
                                 </>
                             )}
                             {isAvailable && (
                                 <>
                                     <h1 className='heading'>Sucess! We will email you when you have a match!</h1>
-                                    <button onClick={() => handleSubmit} className="tutorButton">Reload?</button>
+                                    <button onClick={ handleSubmit} className="tutorButton">Reload?</button>
                                 </>
                             )}
                             </>

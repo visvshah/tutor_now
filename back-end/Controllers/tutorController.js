@@ -69,8 +69,7 @@ export const loginTutor = asyncHandler(async (req, res) => {
     if(tutor && (await bcrypt.compare(password, tutor.password))) {
         const tutorToken = jwt.sign({fName:tutor.fName, lName:tutor.lName, email:tutor.email, _id: tutor._id}, "profile", {expiresIn: "1h"});
         res.json({
-            _id: tutor.id,
-            _id: tutor.id,
+            _id: tutor._id,
             fName: tutor.fName,
             lName: tutor.lName,
             email: tutor.email,

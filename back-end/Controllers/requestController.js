@@ -44,7 +44,7 @@ export const loginStudent = asyncHandler(async (req, res) => {
     if(student && (await bcrypt.compare(password, student.password))) {
         const studentToken = jwt.sign({fName:student.fName, lName:student.lName, email:student.email, _id: student._id}, "profile", {expiresIn: "1h"});
         res.json({
-            _id: student.id,
+            _id: student._id,
                 fName: student.fName,
                 lName: student.lName,
                 email: student.email,

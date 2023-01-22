@@ -20,9 +20,12 @@ export default function StudentHome({user}) {
         fetch("http://localhost:5001/api/tutorsavails/fetch", { method: "PATCH", body: JSON.stringify(request), mode: 'cors', headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},contentType: "application/json"})
             .then(res => {
                 return res.json()
+
             })
             .then(data => {
-                JSON.stringify(data).forEach(function(tutor) {
+                addTutor([])
+                console.log(data)
+                Object.values(data).forEach(function(tutor) {
                     addTutor(tutors.concat(tutor));
                 });
                 setDidReq(true);
@@ -32,8 +35,11 @@ export default function StudentHome({user}) {
         })
     }
     const handleRequest = (tutorId) =>{
-        changeBooking({...booking, tutorId: tutorId})
-        changeBooking({...booking, courseName: request.class})
+        console.log(tutorId)
+        changeBooking({...booking, tutorId: tutorId, courseName: request.courseName})
+
+        console.log("booking: ")
+        console.log(booking)
         fetch("http://localhost:5001/api/tutorsavails/request", { method: "PATCH", body: JSON.stringify(booking), mode: 'cors', headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},contentType: "application/json"})
             .then(res => {
                 return res.json()
@@ -60,14 +66,14 @@ export default function StudentHome({user}) {
                         <div className = "tutorInfo" key = {num}>
                             <h1>{tutor.fName + " " + tutor.lName}</h1>
                             <h1>{"Rating: " + tutor.rating}</h1>
-                            <button className = "submitButton" type="submit" onClick = {handleRequest(tutor._id)}>Request</button>
+                            <button className = "submitButton" type="submit" onClick = {()=> handleRequest(tutor.tutorId)}>Request</button>
                         </div>
                     ))}
                 </div>
                 <div className="rightHome">
                     <h1 className ="heading">Tutor Now: $10.22/hour</h1>
                     <form autoComplete = "off" validate = "true" className = "form" onSubmit = {handleSubmit}>
-                        <input placeholder = "What class do you need help with?" id = "class" name = "class" type ="class" onChange = {(e) => changeRequest({...request, class: e.target.value})}/> 
+                        <input placeholder = "What class do you need help with?" id = "class" name = "class" type ="class" onChange = {(e) => changeRequest({...request, courseName: e.target.value})}/> 
                         <button className = "submitButton" type="submit" onClick = {handleSubmit}>Submit</button>
                     </form>
                 </div>

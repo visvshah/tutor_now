@@ -34,7 +34,7 @@ export const registerStudent = asyncHandler(async (req, res) => {
         const studentToken = jwt.sign({fName, lName, email, id: student._id}, "profile", {expiresIn: "1h"});
         if(student) {
             res.status(201).json({
-                _id: student.id,
+                _id: student._id,
                 fName: student.fName,
                 lName: student.lName,
                 email: student.email,
@@ -59,7 +59,7 @@ export const loginStudent = asyncHandler(async (req, res) => {
     if(student && (await bcrypt.compare(password, student.password))) {
         const studentToken = jwt.sign({fName:student.fName, lName:student.lName, email:student.email, _id: student._id}, "profile", {expiresIn: "1h"});
         res.json({
-            _id: student.id,
+            _id: student._id,
                 fName: student.fName,
                 lName: student.lName,
                 email: student.email,
@@ -85,7 +85,7 @@ export const getStudents = asyncHandler(async (req, res) => {
 export const getStudent = asyncHandler(async (req, res) => {
     //sends back res.json with all student info. (argument is student id)
     studentModel.findById(req.params.id)
-    .then(student => res.json({_id: student.id,
+    .then(student => res.json({_id: student._id,
         fName: student.fName,
         lName: student.lName,
         email: student.email,

@@ -13,7 +13,7 @@ export const createTutorAvail = asyncHandler(async (req, res) => {
     const {tutorId} = await req.body;
 
 
-    const tutor = await tutorModel.findOne({id: tutorId});
+    const tutor = await tutorModel.findOne({_id: tutorId});
     console.log("Tutor found!" + tutor.email)
 
     let courses = tutor.classes;
@@ -72,6 +72,11 @@ export const requestTutor = asyncHandler(async (req, res) => {
     //Update tutor's studentId to match the requesting student's id and update tutor's course to reflect the course they have to tutor
     const {studentId, tutorId, courseName} = await req.body;
     //Tutor dsf = search by id to get the tutor
+
+    console.log("studentId: " + studentId);
+    console.log("tutorId: " + tutorId);
+    console.log("courseName: " + courseName);
+
     const student = await studentModel.findOne({studentId})
     let fName = student.fName;
     let lName = student.lName;

@@ -22,7 +22,7 @@ export default function Home() {
             <StudentHome user = {user}/>
         )}
         {(user.type == 2) && (
-            <TutorHome/>
+            <TutorHome user = {user}/>
         )}
     </div>
   )
