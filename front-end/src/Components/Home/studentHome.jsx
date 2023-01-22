@@ -57,16 +57,14 @@ export default function StudentHome({user}) {
             .then(data => {
                 setFinished(true);
                 setActualTutor(tutors[num]);
-
                 console.log(actualTutor);
             })
         .catch(e => {
             console.log(e)
         })
-        //delete from tutorsavails through the
-        
-        
-
+    
+    }
+    const endBooking = (actualId) => {
         fetch("http://localhost:5001/api/tutorsavails/" + actualId, { method: "DELETE", mode: 'cors', headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},contentType: "application/json"})
             .then(res => {
                 return res.json()
@@ -136,6 +134,7 @@ export default function StudentHome({user}) {
                                             <p className="informationPa">{"About :" + actualTutor.about}</p>
                                         </div>
                                     </div>
+                                    <button className = "requestTutorButton" type="submit" onClick = {()=> endBooking(actualTutor._id)}>End Session</button>
                             
                             </div>
                         </div>
