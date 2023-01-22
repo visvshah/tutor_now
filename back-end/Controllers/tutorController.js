@@ -7,10 +7,10 @@ import express from "express";
 export const registerTutor = asyncHandler(async (req, res) => {
     const { fName, lName, email, age, password, number, venmo, school, classYear, classes,gpa, about} = await req.body;
         
-        if(!fName.length > 0 || !lName.length > 0 ||!email.length > 0 || !password.length > 0 || !age.length > 0) {
-            res.status(400)
-            throw new Error('Please add all fields')
-        }
+        // if(!fName.length > 0 || !lName.length > 0 ||!email.length > 0 || !password.length > 0 || !age.length > 0) {
+        //     res.status(400)
+        //     throw new Error('Please add all fields')
+        // }
         
         const classesArray = classes.split(",");
 

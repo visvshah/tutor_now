@@ -3,7 +3,7 @@ import "./studentHome.css"
 export default function StudentHome({user}) {
     const [didReq, setDidReq] = useState(false);
     const [request, changeRequest] = useState({
-        studentId : user._id,
+        studentId: "",
         courseName: "",
     })
     const [booking, changeBooking] = useState({
@@ -16,6 +16,7 @@ export default function StudentHome({user}) {
     const [actualTutor, setActualTutor] = useState();
     const handleSubmit = (event) =>{
         event.preventDefault();
+        changeRequest({...request, studentId: user._id})
         fetch("http://localhost:5001/api/tutorsavails/fetch", { method: "PATCH", body: JSON.stringify(request), mode: 'cors', headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},contentType: "application/json"})
             .then(res => {
                 return res.json()
